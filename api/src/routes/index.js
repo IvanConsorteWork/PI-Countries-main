@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const { Activity, Country } = require('../db');
 const axios = require ('axios');
+const { Op } = require ('sequelize');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -60,5 +61,45 @@ router.get('/countries', async (req, res) => {
         res.status(200).send(allCountries)
     }
 })
+
+router.get('/countries/:id', async (req, res) => {
+    const { id } = req.params;
+    let allCountries = await getAllCountries();
+    let countryId = allCountries.filter((c) =>
+      c.id.toLowerCase().includes(id.toLowerCase())
+    );  
+    return countryId.length
+      ? res.status(200).send(countryId)
+      : res.status(404).send("El ID ingresado no existe");
+})
+
+router.post('/activities', async (req, res, next) => {
+  const { name,difficulty,duration,season,countriesName }= req.body
+  try {
+  if(name&&difficulty&&duration&&season&&countriesName){
+    const activity={
+      name,
+      difficulty,
+      season,
+      duration,
+    }
+    let createdActivity = await Activity.create(activity)
+    let infoCountriesName= await Country.findAll({
+      where:{
+        name:{
+          [Op.in]:countriesName
+        }
+      }}
+    )
+    infoCountriesName?.map(m=>m.addActivity(createdActivity))
+
+    if(createdActivity)res.json({message:"Actividad creada correctamente",data:createdActivity})
+    else res.json({message:"Error no se obtuvieron todos los datos correspondientes"})
+  }
+    } catch (error) {
+        next(error)
+    }
+})
+
 
 module.exports = router;

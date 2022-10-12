@@ -15,10 +15,10 @@ module.exports = (sequelize) => {
     season: {
       type: DataTypes.ENUM("summer", "autumn", "winter", "spring"),
     },
-    createdInDb: {
+    createdInDb:{
       type: DataTypes.BOOLEAN,
       defaultValue: true,
-      allowNull: false,
+      allowNull:false
     }
   }, {
     timestamps: false
