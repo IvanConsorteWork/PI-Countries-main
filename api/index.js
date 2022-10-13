@@ -18,10 +18,33 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
+const { conn, Country } = require('./src/db.js');
+const axios = require('axios');
+
+async function chargeCountries () {
+  try {
+  const apiURL = await axios.get('https://restcountries.com/v3/all');
+  const apiInfo = await apiURL.data.map(c => {
+      return {
+      id: c.cca3,
+      name: c.name.common,
+      flag: c.flags[0],
+      continent: c.continents[0],
+      capital: c.capital != null ? c.capital[0] : "No data",
+      subregion: c.subregion,
+      area: c.area,
+      population: c.population,
+      };
+    })
+    await Country.bulkCreate(apiInfo, { validate: true });
+  } catch (e) {
+  console.log(e)
+}
+}
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: true }).then(async () => {
+  await chargeCountries();
   server.listen(3001, () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });

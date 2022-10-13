@@ -12,11 +12,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    flags: {
+    flag: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    continents: {
+    continent: {
       type: DataTypes.STRING,
       allowNull: false,
     },
