@@ -13,6 +13,7 @@ const router = Router();
 
 router.get('/countries', async (req, res) => {
   const { name } = req.query;  
+  try {
     let dB = await Country.findAll({
       attributes: ["id", "name", "flag", "continent", "population"],
       include:{
@@ -27,10 +28,32 @@ router.get('/countries', async (req, res) => {
     return res.status(200).send(dB);
   } else {
     let countriesName = dB.filter(c => c.name.toLowerCase().includes(name.toLowerCase()));
-    return countriesName.length ?
-      res.status(200).send(countriesName) :
-      res.status(404).send('No se encuentra el país solicitado');
-  };
+    if (countriesName.length) {
+      res.status(200).send(countriesName)
+    } else {
+      throw new Error
+    }      
+  } 
+} catch (e) {
+    console.log(e);
+    res.status(404).send('No se encuentra el país solicitado');
+  };   
 });
+
+router.get('/countries/:id', async (req, res) => {
+  const { id } =  req.params;
+  try {
+    let countryId = await Country.findByPk( id, { include: [{ model: Activity }] });
+    if (countryId) {
+      res.status(200).send(countryId)      
+    } else {
+      throw new Error
+    }    
+  } catch (e) {
+    console.log(e);
+    res.status(404).send('No se encuentra el país solicitado')
+  }  
+})
+
 
 module.exports = router;
