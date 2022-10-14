@@ -38,8 +38,8 @@ async function chargeCountries () {
     })
     await Country.bulkCreate(apiInfo, { validate: true });
   } catch (e) {
-  console.log(e)
-}
+    console.log(e)
+  }
 }
 
 // Syncing all the models at once.
