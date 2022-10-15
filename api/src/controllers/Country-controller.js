@@ -1,33 +1,30 @@
 const { Country, Activity } = require("../db");
 
-const getCountries = async (req, res) => {
-    const { name } = req.query;  
+  const getCountries = async (req, res) => {
+    const { name } = req.query;
+    const condition = { include: {
+      model: Activity,
+      attributes: ["name", "difficulty", "duration", "season"],
+      through: {
+          attributes: []
+      }
+    }};
+    const where = {};
+    if(name) where.name = name;
+    condition.where = where;  
     try {
-      let allCountries = await Country.findAll({
-        attributes: ["id", "name", "flag", "continent", "population"],
-        include:{
-            model: Activity,
-            attributes: ["name", "difficulty", "duration", "season"],
-            through: {
-                attributes: []
-            }
-        }
-    })
-    if (!name) {
-      return res.status(200).send(allCountries);
-    } else {
-      let countriesName = allCountries.filter(c => c.name.toLowerCase().includes(name.toLowerCase()));
-      if (countriesName.length) {
-        res.status(200).send(countriesName)
-      } else {
+      const countries = await Country.findAll(condition);
+      if (!countries.length > 0) {
         throw new Error
+      } else {
+        res.json(countries)
       }      
-    } 
-  } catch (e) {
-      console.log(e);
-      res.status(404).send('No se encuentra el país solicitado');
-    };   
-  };
+    } catch (e) {
+      console.log(e)
+      res.status(404).send('No se encuentra el país solicitado')
+    }    
+    };
+
   
   const getCountryById = async (req, res) => {
     const { id } =  req.params;
