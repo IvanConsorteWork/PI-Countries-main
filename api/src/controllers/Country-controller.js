@@ -22,8 +22,8 @@ const { Country, Activity } = require("../db");
     } catch (e) {
       console.log(e)
       res.status(404).send('No se encuentra el país solicitado')
-    }    
-    };
+    }
+  };
 
   
   const getCountryById = async (req, res) => {
