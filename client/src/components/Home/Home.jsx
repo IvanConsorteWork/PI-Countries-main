@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCountries, filterByActivity, filterByContinent, sortByName } from '../../redux/actions';
+import { getAllCountries, filterByActivity, filterByContinent, sortByName, sortByPopulation } from '../../redux/actions';
 import { Link } from 'react-router-dom';
 import Card from '../Card/Card'
 import Pagination from '../Pagination/Pagination';
@@ -10,8 +10,8 @@ export default function Home () {
     const dispatch = useDispatch();
     const allCountries = useSelector((state) => state.countries);
 
-    const [orderByName, setOrderByName] = useState("");
-    const [orderByPopulation, setOrderByPopulation] = useState("");
+    const [sortName, setSortName] = useState("");
+    const [sortPopulation, setSortPopulation] = useState("");
 
     const [currentPage, setCurrentPage] = useState(1);
     const [countriesPerPage, setCountriesPerPage] = useState(9);
@@ -48,8 +48,15 @@ export default function Home () {
         e.preventDefault();
         dispatch(sortByName(e.target.value));
         setCurrentPage(1); 
-        setOrderByName(`Sort ${e.target.value}`); 
-      }
+        setSortName(`Sort ${e.target.value}`); 
+    }
+
+    function handleSortByPopulation(e) {
+        e.preventDefault();
+        dispatch(sortByPopulation(e.target.value));
+        setCurrentPage(1); 
+        setSortPopulation(`Sort ${e.target.value}`); 
+    }
 
     return (
         <div>
@@ -80,11 +87,17 @@ export default function Home () {
                     <option value = "Africa">Africa</option>
                 </select>
 
-                <select onChange={(e) => handleSortByName(e)} defaultValue={"default"}>
+                <select defaultValue = {"default"} onChange={(e) => handleSortByName(e)}>
                     <option value="default" disabled> Sort by Name </option>
                     <option value="asc">A-Z</option>
                     <option value="des">Z-A</option>
-          </select>
+                </select>
+
+                <select defaultValue={"default"} onChange={(e) => handleSortByPopulation(e)}>
+                    <option value="default" disabled>Sort by Population</option>
+                    <option value="des">Higher Population</option>
+                    <option value="asc">Lower Population</option>
+                </select>
 
                 <Pagination 
                     allCountries = {allCountries.length}
