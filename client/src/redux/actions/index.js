@@ -3,7 +3,9 @@ export const GET_COUNTRIES_BY_NAME = "GET_COUNTRIES_BY_NAME";
 export const GET_COUNTRY_DETAILS = "GET_COUNTRY_DETAILS";
 export const CREATE_ACTIVITY = "CREATE_ACTIVITY";
 export const DELETE_ACTIVITY = "DELETE_ACTIVITY";
+export const FILTER_BY_ACTIVITY = 'FILTER_BY_ACTIVTY';
 export const FILTER_BY_CONTINENT = "FILTER_BY_CONTINENT";
+export const SORT_BY_NAME = "SORT_BY_NAME";
 
 export const getAllCountries = () => async dispatch => {
     const response = await fetch('http://localhost:3001/countries');
@@ -41,7 +43,7 @@ export const getAllCountries = () => async dispatch => {
 //     }
 //  };
 
-export const filterByActivities = (payload) => {
+export const filterByActivity = (payload) => {
     return {
       type: "FILTER_BY_ACTIVITY",
       payload
@@ -55,9 +57,9 @@ export const filterByContinent = (payload) => {
     }
 };
   
-export const sortByAlphabet = (payload) => {
+export const sortByName = (payload) => {
     return {
-      type:'SORT_BY_ALPHABET',
+      type:'SORT_BY_NAME',
       payload
     }
 };
