@@ -1,5 +1,5 @@
 export const GET_ALL_COUNTRIES = "GET_ALL_COUNTRIES";
-export const GET_COUNTRIES_BY_NAME = "GET_COUNTRIES_BY_NAME";
+export const GET_COUNTRY_BY_NAME = "GET_COUNTRY_BY_NAME";
 export const GET_COUNTRY_DETAILS = "GET_COUNTRY_DETAILS";
 export const CREATE_ACTIVITY = "CREATE_ACTIVITY";
 export const DELETE_ACTIVITY = "DELETE_ACTIVITY";
@@ -9,13 +9,28 @@ export const SORT_BY_NAME = "SORT_BY_NAME";
 export const SORT_BY_POPULATION = "SORT_BY_POPULATION";
 
 export const getAllCountries = () => async dispatch => {
-    const response = await fetch('http://localhost:3001/countries');
-    const json = await response.json();
-    dispatch({
-        type: GET_ALL_COUNTRIES,
-        payload: json
-    });
- };
+  return fetch('http://localhost:3001/countries')
+  .then(response => response.json())
+  .then(json => {
+      dispatch({ 
+          type: GET_ALL_COUNTRIES, 
+          payload: json })
+  })
+};
+
+export const getCountryByName = (name) => async dispatch => {
+    try {
+      return fetch(`http://localhost:3001/countries?name=${name}`)
+      .then(response => response.json())
+      .then(json => {
+          dispatch({ 
+              type: GET_COUNTRY_BY_NAME, 
+              payload: json })
+          })
+    } catch (e) {
+        console.log(e)
+    }    
+};
 
 // export const getCountryDetail = (id) => async dispatch => {
 //     return fetch('http://localhost:3001/countries/' + id)

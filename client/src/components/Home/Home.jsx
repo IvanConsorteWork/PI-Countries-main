@@ -5,6 +5,7 @@ import { getAllCountries, filterByActivity, filterByContinent, sortByName, sortB
 import { Link } from 'react-router-dom';
 import Card from '../Card/Card'
 import Pagination from '../Pagination/Pagination';
+import NavBar from '../NavBar/NavBar';
 
 export default function Home () {
     const dispatch = useDispatch();
@@ -28,11 +29,6 @@ export default function Home () {
     useEffect(() => {
         dispatch(getAllCountries())
     }, [dispatch]) //Equivale a componentDidMount
-
-    function handleClick(e) {
-        e.preventDefault();
-        dispatch(getAllCountries());
-    }
 
     function handleFilterByActivity (e) {
         dispatch(filterByActivity(e.target.value));
@@ -60,15 +56,10 @@ export default function Home () {
 
     return (
         <div>
-            <Link to = '/activities'>
-                Create Activity
-            </Link>
             <h1>
                 Countries Henry App
             </h1>
-            <button onClick = {e => {handleClick(e)}}>
-                Refresh Countries List
-            </button>
+            <NavBar />
             <div>
                 <select onChange = {e => handleFilterByActivity(e)}>
                     <option value = "all">Activities</option>
