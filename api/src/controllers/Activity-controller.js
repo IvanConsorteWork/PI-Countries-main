@@ -2,8 +2,8 @@ const { Country, Activity } = require("../db");
 const { Op } = require('sequelize');
 
 const postActivity = async (req, res) => {
-  const { name, difficulty, duration, season, countries } = req.body;
-  if (!name || !difficulty || !duration || !season || !countries) 
+  const { name, difficulty, duration, season, relatedCountries } = req.body;
+  if (!name || !difficulty || !duration || !season || !relatedCountries) 
       return res.status(404).send('No se obtuvieron los datos correspondientes')
   try {
   const [instance, created] = await Activity.findOrCreate({
@@ -21,7 +21,7 @@ const postActivity = async (req, res) => {
     let relateCountries = await Country.findAll({
         where: {
           name: {
-            [Op.in]: countries
+            [Op.in]: relatedCountries
           }
         }}
     )          

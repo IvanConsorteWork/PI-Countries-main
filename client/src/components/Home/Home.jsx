@@ -2,7 +2,6 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCountries, filterByActivity, filterByContinent, sortByName, sortByPopulation } from '../../redux/actions';
-import { Link } from 'react-router-dom';
 import Card from '../Card/Card'
 import Pagination from '../Pagination/Pagination';
 import NavBar from '../NavBar/NavBar';
@@ -27,8 +26,13 @@ export default function Home () {
     }
 
     useEffect(() => {
-        dispatch(getAllCountries())
+        dispatch(getAllCountries())    
     }, [dispatch]) //Equivale a componentDidMount
+
+    function handleClick(e) {
+        e.preventDefault();
+        dispatch(getAllCountries());    
+    }
 
     function handleFilterByActivity (e) {
         dispatch(filterByActivity(e.target.value));
@@ -55,11 +59,11 @@ export default function Home () {
     }
 
     return (
-        <div>
+        <div>            
+            <NavBar />            
             <h1>
                 Countries Henry App
             </h1>
-            <NavBar />
             <div>
                 <select onChange = {e => handleFilterByActivity(e)}>
                     <option value = "all">Activities</option>
@@ -104,8 +108,11 @@ export default function Home () {
                         continent = {c.continent}/>
                     )                    
                 })
-                }
+                }            
             </div>
+            <button onClick = {e => {handleClick(e)}}>
+                Refresh Countries List
+            </button>
         </div>
     )
 

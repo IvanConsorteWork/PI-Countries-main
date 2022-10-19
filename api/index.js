@@ -23,22 +23,24 @@ const axios = require('axios');
 
 async function chargeCountries () {
   try {
-  const apiURL = await axios.get('https://restcountries.com/v3/all');
-  const apiInfo = await apiURL.data.map(c => {
-      return {
-      id: c.cca3,
-      name: c.name.common,
-      flag: c.flags[0],
-      continent: c.continents[0],
-      capital: c.capital != null ? c.capital[0] : "No data",
-      subregion: c.subregion,
-      area: c.area,
-      population: c.population,
-      };
-    })
-    await Country.bulkCreate(apiInfo, { validate: true });
+      const apiURL = await axios.get('https://restcountries.com/v3/all');
+      const apiInfo = await apiURL.data.map(c => {
+          return {
+          id: c.cca3,
+          name: c.name.common,
+          flag: c.flags[0],
+          continent: c.continents[0],
+          capital: c.capital != null ? c.capital[0] : "No data",
+          subregion: c.subregion,
+          area: c.area,
+          population: c.population,
+          };
+      });
+      // const sortedApiInfo = apiInfo.sort((a, b) => a.name - b.name);
+      // console.log(sortedApiInfo);
+      await Country.bulkCreate(apiInfo, { validate: true });
   } catch (e) {
-    console.log(e)
+      console.log(e)
   }
 }
 

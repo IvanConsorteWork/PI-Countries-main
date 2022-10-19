@@ -1,15 +1,18 @@
-import { GET_ALL_COUNTRIES, FILTER_BY_ACTIVITY, FILTER_BY_CONTINENT, SORT_BY_NAME, SORT_BY_POPULATION, GET_COUNTRY_BY_NAME } from "../actions";
+import { CREATE_ACTIVITY, GET_ALL_COUNTRIES, FILTER_BY_ACTIVITY, FILTER_BY_CONTINENT, SORT_BY_NAME, SORT_BY_POPULATION, GET_COUNTRY_BY_NAME } from "../actions";
 
 const initialState = {
   allCountries: [],
   countries: [],
-  countryDetail: {},
-  activities: {},
+  countryDetail: {}
 };
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
       // Acá va tu código:
+        case CREATE_ACTIVITY:
+          return {
+              ...state
+          }
         case GET_ALL_COUNTRIES:
             return {
                 ...state,
@@ -37,8 +40,8 @@ const rootReducer = (state = initialState, action) => {
                 toFilterByContinent : 
                 toFilterByContinent.filter(c => c.continent === action.payload)
             return {
-              ...state,
-              countries: filteredByContinent
+                ...state,
+                countries: filteredByContinent
             };
         case SORT_BY_NAME: 
             let sortedByName = action.payload === 'asc' ?
@@ -59,8 +62,8 @@ const rootReducer = (state = initialState, action) => {
                     return 0
                   }}) 
             return {
-              ...state,
-              countries: sortedByName
+                ...state,
+                countries: sortedByName
             }
         case SORT_BY_POPULATION:
           let sortedByPopulation = action.payload === "asc" ? 
@@ -84,13 +87,13 @@ const rootReducer = (state = initialState, action) => {
                     return 0;
               });
             return {
-              ...state,
-              countries: sortedByPopulation,
-            };
+                ...state,
+                countries: sortedByPopulation,
+            };        
         default: 
-          return {
-          ...state
-          }      
+            return {
+                ...state
+            }      
     }
   };
   
