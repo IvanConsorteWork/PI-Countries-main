@@ -8,7 +8,9 @@ const { Country, Activity } = require("../db");
       through: {
           attributes: []
       }
-    }};
+    }, order: [[
+      'name', 'ASC'
+    ]]};
     const where = {};
     if(name) where.name = name;
     condition.where = where;  
