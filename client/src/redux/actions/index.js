@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const GET_ALL_COUNTRIES = "GET_ALL_COUNTRIES";
-export const GET_COUNTRY_BY_NAME = "GET_COUNTRY_BY_NAME";
 export const GET_COUNTRY_DETAILS = "GET_COUNTRY_DETAILS";
+export const GET_COUNTRY_BY_NAME = "GET_COUNTRY_BY_NAME";
 export const CREATE_ACTIVITY = "CREATE_ACTIVITY";
 export const DELETE_ACTIVITY = "DELETE_ACTIVITY";
 export const FILTER_BY_ACTIVITY = "FILTER_BY_ACTIVTY";
@@ -35,15 +35,19 @@ export const getCountryByName = (name) => async dispatch => {
     }    
 };
 
-// export const getCountryDetail = (id) => async dispatch => {
-//     return fetch('http://localhost:3001/countries/' + id)
-//     .then(response => response.json())
-//     .then(json => {
-//         dispatch({ 
-//             type: GET_COUNTRY_DETAILS, 
-//             payload: json })
-//     })
-//  };
+export const getCountryDetails = (id) => async dispatch => {
+  try {
+    return fetch(`http://localhost:3001/countries/${id}`)
+    .then(response => response.json())
+    .then(json => {
+        dispatch({ 
+            type: GET_COUNTRY_DETAILS, 
+            payload: json})
+        })
+  } catch (e) {
+      console.log(e)
+  }    
+};
 
 export const createActivity = (payload) => {
     return async function (dispatch) {

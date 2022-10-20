@@ -103,6 +103,7 @@ export default function Home () {
                 {currentCountries && currentCountries?.map((c) => {
                     return (
                         <Card 
+                        id = {c.id}
                         name = {c.name} 
                         flag = {c.flag} 
                         continent = {c.continent}/>

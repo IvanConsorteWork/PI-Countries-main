@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCountries, createActivity } from "../../redux/actions/index";
@@ -38,7 +39,7 @@ export default function CreateActivity () {
             errors.season = "*Please select a season*";
             // setButtonEnabled(false)
         }
-        if(!input.relatedCountries) {
+        if(input.relatedCountries === []) {
             errors.relatedCountries = "*Please select a country*";
             // setButtonEnabled(false)
         }
@@ -56,7 +57,7 @@ export default function CreateActivity () {
         return errors
     }
 
-    function handleChange(e){
+    function handleChange(e) {
         setInput({
             ...input,
             [e.target.name]: e.target.value
@@ -111,7 +112,7 @@ export default function CreateActivity () {
             season:"",
             relatedCountries:[]
         })
-        history.push('/home')
+        // history.push('/home')
     }
 
     useEffect(() => {
@@ -138,13 +139,13 @@ export default function CreateActivity () {
                 </div>
                 <div>
                     <label>Difficulty:</label>
-                    <select defaultValue={'default'} name="difficulty" onChange={e => handleSelect(e)}>
-                        <option value='default' disabled>Difficulty</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+                    <select defaultValue = {'default'} name = "difficulty" onChange = {e => handleSelect(e)}>
+                        <option value ='default' disabled>Difficulty</option>
+                        <option value ="1">1</option>
+                        <option value ="2">2</option>
+                        <option value ="3">3</option>
+                        <option value ="4">4</option>
+                        <option value ="5">5</option>
                     </select>
                 </div>
                 <div>
@@ -154,14 +155,15 @@ export default function CreateActivity () {
                 </div>
                 <div>
                     <label>Duration:</label>
-                    <select defaultValue={'default'} name="duration" onChange = {e => handleSelect(e)}>
-                        <option value='default' disabled>Select number of hours required</option>
-                        <option value="1/2">1/2 hour</option>
-                        <option value="1">1 hour</option>
-                        <option value="2">2 hours</option>
-                        <option value="3 to 4">3 to 4 hours</option>
-                        <option value="5">5 hours or more</option>
-                    </select>
+                    <input
+                    type = "text"
+                    value = {input.name}
+                    name = "duration"
+                    onChange = {handleChange}
+                    />
+                    {errors.duration && (
+                        <p>{errors.duration}</p>
+                    )}
                 </div>
                 <div>
                     <label>Season:</label>
@@ -200,6 +202,9 @@ export default function CreateActivity () {
                 </div>
             )}
         </div>
+            <Link to = '/home'>
+                <button>Back to Home</button>
+            </Link>                
         </div>
     )
 }
