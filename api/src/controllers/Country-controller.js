@@ -1,7 +1,7 @@
 const { Country, Activity } = require("../db");
 
   const getCountries = async (req, res) => {
-    const { name } = req.query;
+    const { name } = req.query; 
     const condition = { include: {
       model: Activity,
       attributes: ["name", "difficulty", "duration", "season"],
@@ -23,7 +23,7 @@ const { Country, Activity } = require("../db");
       }      
     } catch (e) {
       console.log(e)
-      res.status(404).send('No se encuentra el país solicitado')
+      res.status(404).send({msg: 'No se encuentra el país solicitado'})
     }
   };
 
@@ -39,7 +39,7 @@ const { Country, Activity } = require("../db");
       }    
     } catch (e) {
       console.log(e);
-      res.status(404).send('No se encuentra el país solicitado')
+      res.status(404).send({msg: 'No se encuentra el país solicitado'})
     }  
   }
 

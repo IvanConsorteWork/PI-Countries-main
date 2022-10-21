@@ -6,33 +6,34 @@ import { useEffect } from "react";
 export default function CardDetails (props) {
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getCountryDetails(props.match.params.id))
     }, [dispatch])
     
-    const myCountry = useSelector((state) => state.countryDetails)
+    const myCountry = useSelector((state) => state.countryDetail)
+    console.log(myCountry)
 
     return(
         <div>
             {
-                myCountry.length > 0?
+                myCountry.length > 0 ?
                 <div>
                     <div>
-                    <img src={myCountry[0].flag} alt="country flag"/>
+                    <img src={myCountry.flag} alt="country flag"/>
                     </div>
                     <div>
                         
                     
-                    <h1>Name:{myCountry[0].name}</h1>
-                    <h2>Id:{myCountry[0].id}</h2>
-                    <h3>Capital:{myCountry[0].capital}</h3>
-                    <h3>Subregion:{myCountry[0].subregion}</h3>
-                    <h3>Area:{myCountry[0].area}</h3>
-                    <h3>Population:{myCountry[0].population}</h3>
+                    <h1>Name:{myCountry.name}</h1>
+                    <h2>Id:{myCountry.id}</h2>
+                    <h3>Capital:{myCountry.capital}</h3>
+                    <h3>Subregion:{myCountry.subregion}</h3>
+                    <h3>Area:{myCountry.area}</h3>
+                    <h3>Population:{myCountry.population}</h3>
                     </div>
                     <div >
-                    {myCountry[0].activities.length?<h3><b>Activities: </b></h3>:""}
-                    {myCountry[0].activities?.map(e=><div>
+                    {myCountry.activities.length?<h3><b>Activities: </b></h3>:""}
+                    {myCountry.activities?.map(e=><div>
                     <ul>
                     <li>Name:{e.name}</li>
                     <li>Dificultad:{e.difficulty}</li>
@@ -41,7 +42,9 @@ export default function CardDetails (props) {
                     </ul>
                 </div>
           )}
-                </div></div>:<p>Loading...</p>
+                </div>
+                </div> :
+                <p>Loading...</p>
                 
             }
         </div>

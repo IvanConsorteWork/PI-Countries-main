@@ -1,10 +1,9 @@
 import React from 'react';
-import NavBar from '../NavBar/NavBar';
+import { Link } from 'react-router-dom';
 
 export default function About () {
     return (
         <div>
-            <NavBar />
             <h3>Hello, dear reader!</h3>
             <span>My name is Ivan Consorte and this my Individual Project for Henry's Web Development Course. In this project, I develop a web integrating several technologies that I learn on the course. </span>
             <span>This website was developed with:</span>
@@ -16,6 +15,9 @@ export default function About () {
                 <li>Sequeliz (Database)</li>
                 <li>Jest (Testing)</li>
             </ol>
+            <Link to = '/home'>
+                <button>Back to Home</button>
+            </Link> 
         </div>
     )
 }

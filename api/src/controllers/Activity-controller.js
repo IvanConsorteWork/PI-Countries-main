@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 const postActivity = async (req, res) => {
   const { name, difficulty, duration, season, relatedCountries } = req.body;
   if (!name || !difficulty || !duration || !season || !relatedCountries) 
-      return res.status(404).send('No se obtuvieron los datos correspondientes')
+      return res.status(404).send({msg: 'No se obtuvieron los datos correspondientes'})
   try {
   const [instance, created] = await Activity.findOrCreate({
       where: {
@@ -26,9 +26,9 @@ const postActivity = async (req, res) => {
         }}
     )          
     relateCountries?.forEach(c => c.addActivity(instance));
-    return res.send('Actividad creada con éxito')
+    return res.send({msg: 'Actividad creada con éxito'})
   } else {
-      return res.send("Ya existe una actividad con el mismo nombre");
+      return res.send({msg: "Ya existe una actividad con el mismo nombre"});
   }
   } catch (error) {
   console.log(error)

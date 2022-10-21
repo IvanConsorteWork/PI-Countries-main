@@ -36,8 +36,6 @@ async function chargeCountries () {
           population: c.population,
           };
       });
-      // const sortedApiInfo = apiInfo.sort((a, b) => a.name - b.name);
-      // console.log(sortedApiInfo);
       await Country.bulkCreate(apiInfo, { validate: true });
   } catch (e) {
       console.log(e)

@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCountries, createActivity } from "../../redux/actions/index";
-import NavBar from "../NavBar/NavBar";
-
 
 export default function CreateActivity () {
     const dispatch = useDispatch();
@@ -112,7 +110,7 @@ export default function CreateActivity () {
             season:"",
             relatedCountries:[]
         })
-        // history.push('/home')
+        history.push('/home')
     }
 
     useEffect(() => {
@@ -121,7 +119,6 @@ export default function CreateActivity () {
 
     return (
         <div>
-        <NavBar />
         <div>            
             <h1>Create your Activity!</h1>
             <form onSubmit = {e => handleSubmit(e)}>

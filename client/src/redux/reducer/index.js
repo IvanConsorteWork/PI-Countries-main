@@ -3,7 +3,7 @@ import { CREATE_ACTIVITY, GET_ALL_COUNTRIES, GET_COUNTRY_BY_NAME, GET_COUNTRY_DE
 const initialState = {
   allCountries: [],
   countries: [],
-  countryDetail: {}
+  countryDetail: []
 };
 
 const rootReducer = (state = initialState, action) => {
