@@ -1,6 +1,17 @@
 const { Country, Activity } = require("../db");
 const { Op } = require('sequelize');
 
+const getActivity = async (req, res) => {
+    try {
+        const activities = await Activity.findAll({order: [[
+            'name', 'ASC'
+          ]]})
+        res.status(200).send(activities)    
+    } catch (e) {
+        console.log(e)
+    }
+}
+
 const postActivity = async (req, res) => {
   const { name, difficulty, duration, season, relatedCountries } = req.body;
   if (!name || !difficulty || !duration || !season || !relatedCountries) 
@@ -10,7 +21,7 @@ const postActivity = async (req, res) => {
       where: {
           name: name,
       },
-      defaults:{
+      defaults: {
           name: name,
           difficulty: difficulty,
           duration: duration,
@@ -36,5 +47,6 @@ const postActivity = async (req, res) => {
 }
 
   module.exports = {
+      getActivity,
       postActivity
   }

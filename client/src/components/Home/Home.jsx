@@ -22,7 +22,13 @@ export default function Home () {
     const currentCountries = allCountries.slice(indexOfFirstCountry, indexOfLastCountry);
     
     const pagination = (pageNumber) => {
-        setCurrentPage(pageNumber)
+        if (pageNumber === 1) {
+            setCountriesPerPage(9);
+            setCurrentPage(pageNumber)
+        } else {
+            setCountriesPerPage(10);
+            setCurrentPage(pageNumber)
+        }
     }
 
     useEffect(() => {

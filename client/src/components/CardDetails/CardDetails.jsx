@@ -8,18 +8,18 @@ export default function CardDetails (props) {
 
     useEffect(() => {
         dispatch(getCountryDetails(props.match.params.id))
-    }, [dispatch])
+    }, [dispatch, props.match.params.id])
     
     const myCountry = useSelector((state) => state.countryDetail)
-    console.log(myCountry)
+   
 
-    return(
+    return (
         <div>
             {
                 myCountry.length > 0 ?
                 <div>
                     <div>
-                    <img src={myCountry.flag} alt="country flag"/>
+                    <img src = {myCountry.flag} alt="country flag"/>
                     </div>
                     <div>
                         

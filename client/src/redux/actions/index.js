@@ -30,8 +30,8 @@ export const getCountryByName = (name) => async dispatch => {
               type: GET_COUNTRY_BY_NAME, 
               payload: json })
           })
-    } catch (e) {
-        console.log(e)
+    } catch (e) {      
+        alert('No se encuentra el pais solicitado')
     }    
 };
 
@@ -44,8 +44,8 @@ export const getCountryDetails = (id) => async dispatch => {
             type: GET_COUNTRY_DETAILS, 
             payload: json})
         })
-  } catch (e) {
-      console.log(e)
+  } catch (e) {      
+      alert(e)
   }    
 };
 

@@ -21,29 +21,29 @@ export default function CreateActivity () {
 
     function validate (input) {
         let errors = {};
+        
         if(!input.name) {
             errors.name = "*Activity name required*";
-            // setButtonEnabled(false)
         }
+
         if(input.name.length < 3 || input.name.length > 15) {
             errors.name = "*Invalid activity name*";
-            // setButtonEnabled(false)
         }
+
         if(!input.duration) {
             errors.duration = "*Duration time required*";
-            // setButtonEnabled(false)
         }
+
         if(!input.season) {
             errors.season = "*Please select a season*";
-            // setButtonEnabled(false)
         }
+
         if(input.relatedCountries === []) {
             errors.relatedCountries = "*Please select a country*";
-            // setButtonEnabled(false)
         }
+
         if(!input.difficulty) {
             errors.difficulty = "*Please select a difficulty*";
-            // setButtonEnabled(false)
         }
 
         if (Object.entries(errors).length === 0) {
@@ -154,7 +154,7 @@ export default function CreateActivity () {
                     <label>Duration:</label>
                     <input
                     type = "text"
-                    value = {input.name}
+                    value = {input.duration}
                     name = "duration"
                     onChange = {handleChange}
                     />

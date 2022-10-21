@@ -13,9 +13,14 @@ export default function SearchBar () {
     }
 
     function handleSubmit(e) {
-        e.preventDefault();         
-        dispatch(getCountryByName(name));
-        setName("")
+            e.preventDefault();  
+            let casedName = applyCaseName(name)
+            dispatch(getCountryByName(casedName));
+            setName("")    
+    }
+
+    function applyCaseName(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     }
 
     return (
