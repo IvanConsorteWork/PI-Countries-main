@@ -31,7 +31,7 @@ export const getCountryByName = (name) => async dispatch => {
               payload: json })
           })
     } catch (e) {      
-        alert('No se encuentra el pais solicitado')
+        alert(e)
     }    
 };
 
@@ -51,8 +51,12 @@ export const getCountryDetails = (id) => async dispatch => {
 
 export const createActivity = (payload) => {
     return async function (dispatch) {
+      try {
         var response = await axios.post('http://localhost:3001/activities', payload);
         return response
+      } catch (e) {
+        alert(e)
+      }        
     }
 };
 

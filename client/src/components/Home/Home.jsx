@@ -8,6 +8,11 @@ import NavBar from '../NavBar/NavBar';
 
 export default function Home () {
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getAllCountries())    
+    }, [dispatch])
+    
     const allCountries = useSelector((state) => state.countries);
 
     const [sortName, setSortName] = useState("");
@@ -17,8 +22,8 @@ export default function Home () {
     const [countriesPerPage, setCountriesPerPage] = useState(9);
 
     const indexOfLastCountry = currentPage * countriesPerPage;
-    const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
-
+    const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;    
+    
     const currentCountries = allCountries.slice(indexOfFirstCountry, indexOfLastCountry);
     
     const pagination = (pageNumber) => {
@@ -31,9 +36,7 @@ export default function Home () {
         }
     }
 
-    useEffect(() => {
-        dispatch(getAllCountries())    
-    }, [dispatch]) //Equivale a componentDidMount
+     //Equivale a componentDidMount
 
     function handleClick(e) {
         e.preventDefault();

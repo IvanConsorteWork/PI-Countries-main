@@ -7,6 +7,10 @@ export default function SearchBar () {
     const dispatch = useDispatch();
     const [name, setName] = useState("");
 
+    function applyCaseName(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
+
     function handleInputChange(e){
         e.preventDefault();
         setName(e.target.value)
@@ -17,11 +21,7 @@ export default function SearchBar () {
             let casedName = applyCaseName(name)
             dispatch(getCountryByName(casedName));
             setName("")    
-    }
-
-    function applyCaseName(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-    }
+    }    
 
     return (
         <div>
