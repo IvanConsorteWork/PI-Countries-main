@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCountries, filterByActivity, filterByContinent, sortByName, sortByPopulation } from '../../redux/actions';
+import { getAllActivities, getAllCountries, filterByActivity, filterByContinent, sortByName, sortByPopulation } from '../../redux/actions';
 import Card from '../Card/Card'
 import Pagination from '../Pagination/Pagination';
 import NavBar from '../NavBar/NavBar';
@@ -10,11 +10,13 @@ export default function Home () {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAllCountries())    
+        dispatch(getAllActivities());
+        dispatch(getAllCountries())           
     }, [dispatch])
     
+    const allActivities = useSelector((state) => state.activities);
     const allCountries = useSelector((state) => state.countries);
-
+    
     const [sortName, setSortName] = useState("");
     const [sortPopulation, setSortPopulation] = useState("");
 
@@ -84,9 +86,13 @@ export default function Home () {
             </h1>
             <div>
                 <select onChange = {e => handleFilterByActivity(e)}>
-                    <option value = "all">Activities</option>
-                    <option value = "act">With Activities</option>
-                    <option value = "noAct">Without Activities</option>
+                    <option value = "all">Select Activity</option>
+                    <option value = "noA">Without Activities</option>
+                    {allActivities?.map((c) => {
+                        return (
+                            <option value = {c.name}>{c.name}</option>
+                        )
+                    })}
                 </select>
 
                 <select onChange = {e => handleFilterByContinent(e)} >

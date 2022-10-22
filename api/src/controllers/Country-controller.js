@@ -23,7 +23,7 @@ const { Country, Activity } = require("../db");
       }      
     } catch (e) {
       console.log(e)
-      res.status(404).send({msg: 'No se encuentra el país solicitado'})
+      res.status(404).send({msg: 'Cannot find requested country'})
     }
   };
 
@@ -39,7 +39,7 @@ const { Country, Activity } = require("../db");
       }    
     } catch (e) {
       console.log(e);
-      res.status(404).send({msg: 'No se encuentra el país solicitado'})
+      res.status(404).send({msg: 'Cannot find requested country'})
     }  
   }
 

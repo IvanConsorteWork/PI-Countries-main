@@ -123,7 +123,7 @@ export default function CreateActivity () {
             <h1>Create your Activity!</h1>
             <form onSubmit = {e => handleSubmit(e)}>
                 <div>
-                    <label>Activity:</label>
+                    <label>Activity: </label>
                     <input
                     type = "text"
                     value = {input.name}
@@ -135,7 +135,7 @@ export default function CreateActivity () {
                     )}
                 </div>
                 <div>
-                    <label>Difficulty:</label>
+                    <label>Difficulty: </label>
                     <select defaultValue = {'default'} name = "difficulty" onChange = {e => handleSelect(e)}>
                         <option value ='default' disabled>Difficulty</option>
                         <option value ="1">1</option>
@@ -151,7 +151,7 @@ export default function CreateActivity () {
                 )}
                 </div>
                 <div>
-                    <label>Duration:</label>
+                    <label>Duration: </label>
                     <input
                     type = "text"
                     value = {input.duration}
@@ -163,7 +163,7 @@ export default function CreateActivity () {
                     )}
                 </div>
                 <div>
-                    <label>Season:</label>
+                    <label>Season: </label>
                     <select defaultValue = {'default'} name = "season" onChange = {e => handleSelect(e)}>
                         <option value='default' disabled>Season</option>
                         <option value="summer">Summer</option>

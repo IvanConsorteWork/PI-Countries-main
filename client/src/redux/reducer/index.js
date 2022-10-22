@@ -1,6 +1,7 @@
-import { CREATE_ACTIVITY, GET_ALL_COUNTRIES, GET_COUNTRY_BY_NAME, GET_COUNTRY_DETAILS, FILTER_BY_ACTIVITY, FILTER_BY_CONTINENT, SORT_BY_NAME, SORT_BY_POPULATION } from "../actions";
+import { CREATE_ACTIVITY, GET_ALL_ACTIVITIES, GET_ALL_COUNTRIES, GET_COUNTRY_BY_NAME, GET_COUNTRY_DETAILS, FILTER_BY_ACTIVITY, FILTER_BY_CONTINENT, SORT_BY_NAME, SORT_BY_POPULATION } from "../actions";
 
 const initialState = {
+  activities: [],
   allCountries: [],
   countries: [],
   countryDetail: []
@@ -13,6 +14,11 @@ const rootReducer = (state = initialState, action) => {
           return {
               ...state
           }
+        case GET_ALL_ACTIVITIES:
+          return {
+              ...state,
+              activities: action.payload                    
+          } 
         case GET_ALL_COUNTRIES:
             return {
                 ...state,
@@ -31,10 +37,9 @@ const rootReducer = (state = initialState, action) => {
             } 
         case FILTER_BY_ACTIVITY:
             const toFilterByActivity = state.allCountries;
-            const activityFilter = action.payload === 'act' ? 
-            toFilterByActivity.filter(c => c.activities.length !== 0) : 
-                action.payload === 'noA' ? 
-                toFilterByActivity.filter(c => !c.activities.length) : toFilterByActivity
+            const activityFilter = action.payload === 'all' || action.payload === 'noA' ? 
+            toFilterByActivity :
+            toFilterByActivity.filter(c => c.activities.name === action.payload)
             return {
                 ...state,
                 countries: activityFilter

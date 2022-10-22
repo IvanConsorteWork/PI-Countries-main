@@ -4,7 +4,8 @@ export const GET_ALL_COUNTRIES = "GET_ALL_COUNTRIES";
 export const GET_COUNTRY_DETAILS = "GET_COUNTRY_DETAILS";
 export const GET_COUNTRY_BY_NAME = "GET_COUNTRY_BY_NAME";
 export const CREATE_ACTIVITY = "CREATE_ACTIVITY";
-export const DELETE_ACTIVITY = "DELETE_ACTIVITY";
+// export const DELETE_ACTIVITY = "DELETE_ACTIVITY";
+export const GET_ALL_ACTIVITIES = "GET_ALL_ACTIVITIES";
 export const FILTER_BY_ACTIVITY = "FILTER_BY_ACTIVTY";
 export const FILTER_BY_CONTINENT = "FILTER_BY_CONTINENT";
 export const SORT_BY_NAME = "SORT_BY_NAME";
@@ -66,6 +67,16 @@ export const createActivity = (payload) => {
 //         payload: id
 //     }
 //  };
+
+export const getAllActivities = () => async dispatch => {
+  return fetch('http://localhost:3001/activities')
+  .then(response => response.json())
+  .then(json => {
+      dispatch({ 
+          type: GET_ALL_ACTIVITIES, 
+          payload: json })
+  })
+};
 
 export const filterByActivity = (payload) => {
     return {

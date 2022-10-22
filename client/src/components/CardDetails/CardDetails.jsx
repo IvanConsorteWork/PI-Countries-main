@@ -36,38 +36,39 @@ export default function CardDetails (props) {
             history.push('/404')
         }
     }
-        return (
-            <div>
-                {
-                    countryLoad ?
-                    <p>Loading...</p> :                 
+
+    return (
+        <div>
+            {
+                countryLoad ?
+                <p>Loading...</p> :                 
+                <div>
                     <div>
-                        <div>
-                            <img src = {myCountry.flag} alt="country flag"/>
-                        </div>
-                        <div>                   
-                            <h1>Name:{myCountry.name}</h1>
-                            <h2>Id:{myCountry.id}</h2>
-                            <h3>Capital:{myCountry.capital}</h3>
-                            <h3>Subregion:{myCountry.subregion}</h3>
-                            <h3>Area:{myCountry.area}</h3>
-                            <h3>Population:{myCountry.population}</h3>
-                        </div>
-                        <div >
-                            {checkActivities()}
-                            {myCountry.activities?.map(e => <div>
-                                <ul>
-                                    <li>Name:{e.name}</li>
-                                    <li>Dificultad:{e.difficulty}</li>
-                                    <li>Duration:{e.duration}HS</li>
-                                    <li>Season:{e.season}</li>
-                                </ul>
-                        </div>
-                        )}
+                        <img src = {myCountry.flag} alt="country flag"/>
                     </div>
-                        <Link to = '/home'>Back to Home</Link>
-                    </div>                
-                }
-            </div>
-        )   
+                    <div>                   
+                        <h1>Name:{myCountry.name}</h1>
+                        <h2>Id:{myCountry.id}</h2>
+                        <h3>Capital:{myCountry.capital}</h3>
+                        <h3>Subregion:{myCountry.subregion}</h3>
+                        <h3>Area:{myCountry.area}</h3>
+                        <h3>Population:{myCountry.population}</h3>
+                    </div>
+                    <div >
+                        {checkActivities()}
+                        {myCountry.activities?.map(e => <div>
+                            <ul>
+                                <li>Name:{e.name}</li>
+                                <li>Dificultad:{e.difficulty}</li>
+                                <li>Duration:{e.duration}HS</li>
+                                <li>Season:{e.season}</li>
+                            </ul>
+                    </div>
+                    )}
+                </div>
+                    <Link to = '/home'>Back to Home</Link>
+                </div>                
+            }
+        </div>
+    )   
 }
