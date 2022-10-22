@@ -24,7 +24,16 @@ export default function Home () {
     const indexOfLastCountry = currentPage * countriesPerPage;
     const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;    
     
-    const currentCountries = allCountries.slice(indexOfFirstCountry, indexOfLastCountry);
+    const findCurrentCountries = () => {
+        try {
+            return allCountries.slice(indexOfFirstCountry, indexOfLastCountry)
+        } catch (e) {
+            alert('Country not found');
+            dispatch(getAllCountries())
+        }
+    }
+
+    const currentCountries = findCurrentCountries();
     
     const pagination = (pageNumber) => {
         if (pageNumber === 1) {
