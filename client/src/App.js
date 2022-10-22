@@ -13,11 +13,11 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path = '/' component = {LandingPage}></Route>
-        <Route exact path = '/404' component = {NotFound}></Route>
-        <Route path = '/about' component = {About}></Route>        
-        <Route path = '/activities' component = {CreateActivity}></Route>
+        <Route exact path = '/about' component = {About}></Route>        
+        <Route exact path = '/activities' component = {CreateActivity}></Route>
         <Route exact path = '/home' component = {Home}></Route>        
         <Route path = "/home/:id" component = {CardDetails}></Route>
+        <Route path = '/' component = {NotFound}></Route>
       </Switch>      
     </div>
     </BrowserRouter>
