@@ -17,29 +17,29 @@ const postActivity = async (req, res) => {
   if (!name || !difficulty || !duration || !season || !relatedCountries) 
       return res.status(404).send({msg: 'Required data is missing'})
   try {
-  const [instance, created] = await Activity.findOrCreate({
-      where: {
-          name: name,
-      },
-      defaults: {
-          name: name,
-          difficulty: difficulty,
-          duration: duration,
-          season: season,
-      }
-  });
-  if(created) {
-    let relateCountries = await Country.findAll({
-        where: {
-          name: {
-            [Op.in]: relatedCountries
+      const [instance, created] = await Activity.findOrCreate({
+          where: {
+              name: name,
+          },
+          defaults: {
+              name: name,
+              difficulty: difficulty,
+              duration: duration,
+              season: season,
           }
-        }}
-    )          
-    relateCountries?.forEach(c => c.addActivity(instance));
-    return res.send({msg: 'Activity created successfully'})
+      });
+      if(created) {
+        let relateCountries = await Country.findAll({
+            where: {
+              name: {
+                [Op.in]: relatedCountries
+              }
+            }}
+        )          
+        relateCountries?.forEach(c => c.addActivity(instance));
+        return res.send({msg: 'Activity created successfully'})
   } else {
-      return res.send({msg: "There is an activity by that name already"});
+      return res.status(404).send({msg: "There is an activity by that name already"});
   }
   } catch (error) {
   console.log(error)

@@ -39,7 +39,7 @@ const { Country, Activity } = require("../db");
       }    
     } catch (e) {
       console.log(e);
-      res.status(404).send({msg: 'Cannot find requested country'})
+      res.status(404).json({msg: 'Cannot find requested country'})
     }  
   }
 
