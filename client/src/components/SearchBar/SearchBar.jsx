@@ -2,8 +2,9 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getCountryByName } from '../../redux/actions';
+import "./SearchBar.css"
 
-export default function SearchBar () {
+export default function SearchBar ({setCurrentPage}) {
     const dispatch = useDispatch();
     const [name, setName] = useState("");
 
@@ -17,15 +18,22 @@ export default function SearchBar () {
     }
 
     function handleSubmit(e) {
-            e.preventDefault();  
-            let casedName = applyCaseName(name)
-            dispatch(getCountryByName(casedName));
-            setName("")    
+            e.preventDefault();
+            try {
+                let casedName = applyCaseName(name)
+                dispatch(getCountryByName(casedName));
+                setName("");
+                setCurrentPage(1);
+            } catch (e) {
+                console.log(e);
+                alert('Country not found')
+            }
+              
     }    
 
     return (
-        <div>
-            <input 
+        <div className = 'searchContainer'>
+            <input  
             type = "text" 
             placeholder = "Search country by name" 
             value = {name}

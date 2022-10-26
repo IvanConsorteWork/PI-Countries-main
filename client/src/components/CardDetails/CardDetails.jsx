@@ -1,4 +1,5 @@
 import React from "react";
+import NavBar from "../NavBar/NavBar.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { getCountryDetails } from '../../redux/actions';
 import { useEffect, useState } from "react";
@@ -39,6 +40,7 @@ export default function CardDetails (props) {
 
     return (
         <div>
+            <NavBar />
             {
                 countryLoad ?
                 <p>Loading...</p> :                 
@@ -60,7 +62,7 @@ export default function CardDetails (props) {
                             <ul>
                                 <li>Name:{e.name}</li>
                                 <li>Dificultad:{e.difficulty}</li>
-                                <li>Duration:{e.duration}HS</li>
+                                <li>Duration:{e.duration}</li>
                                 <li>Season:{e.season}</li>
                             </ul>
                     </div>

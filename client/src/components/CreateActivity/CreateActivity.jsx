@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
+import NavBar from "../NavBar/NavBar";
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCountries, createActivity } from "../../redux/actions/index";
+import { getAllCountries, createActivity, getAllActivities } from "../../redux/actions/index";
 
 export default function CreateActivity () {
     const dispatch = useDispatch();
+    const activities = useSelector((state) => state.activities)
     const countries = useSelector((state) => state.countries);
     const history = useHistory();
     const [errors, setErrors] = useState({});
@@ -99,26 +101,33 @@ export default function CreateActivity () {
         })
     }
 
-    function handleSubmit(e){
+    function handleSubmit(e) {
         e.preventDefault();
-        dispatch(createActivity(input))
-        alert("Activity created!!")
-        setInput({
-            name:"",
-            difficulty:"",
-            duration:"",
-            season:"",
-            relatedCountries:[]
-        })
-        history.push('/home')
+        console.log(activities)
+        if(activities.includes(input.name)) {
+            alert("Activity by that name already exists!")
+        } else {
+            dispatch(createActivity(input))
+            alert("Activity created!!")
+            setInput({
+                name:"",
+                difficulty:"",
+                duration:"",
+                season:"",
+                relatedCountries:[]
+            })
+            history.push('/home')            
+        }        
     }
 
     useEffect(() => {
-        dispatch(getAllCountries())
+        dispatch(getAllCountries());
+        dispatch(getAllActivities())
         }, [dispatch]);
 
     return (
         <div>
+            <NavBar />
         <div>            
             <h1>Create your Activity!</h1>
             <form onSubmit = {e => handleSubmit(e)}>

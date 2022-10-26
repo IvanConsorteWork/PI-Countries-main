@@ -1,0 +1,25 @@
+.card {
+    width: 250px;
+    height: 320px;
+    color:black;    
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.name {
+    text-decoration: none;
+}
+  
+.img-c {
+    width: 100%;
+    max-height: 250px;
+}
+  
+.continent {
+    padding-top: 8px;
+    bottom: 0px;
+}
+
+  

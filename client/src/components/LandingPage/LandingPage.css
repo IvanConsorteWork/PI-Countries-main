@@ -1,0 +1,51 @@
+.LandingContainer {
+    background-image: url("https://s27363.pcdn.co/wp-content/uploads/2020/05/Santorini-Sunset.jpg.optimal.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.LandingTitle {
+    position: fixed;
+    top: 100px; 
+    font-size: 50px;
+    color: #ffc517;
+    font-family: "Arial Black", Gadget, sans-serif;
+    text-shadow: 0px 0px 0 rgb(241,183,9),
+                 1px 0px 0 rgb(228,170,0),
+                 2px 0px 0 rgb(214,156,0),
+                 3px 0px 0 rgb(200,142,0),
+                 4px 0px 0 rgb(187,129,0),
+                 5px 0px 0 rgb(173,115,0),
+                 6px 0px 0 rgb(159,101,0),
+                 7px 0px 0 rgb(145,87,0),
+                 8px 0px 0 rgb(132,74,0),
+                 9px 0px 0 rgb(118,60,0),
+                 10px 0px  0 rgb(104,46,0),
+                 11px 0px 10px rgba(0,0,0,0.42),
+                 11px 0px 1px rgba(0,0,0,0.5),
+                 0px 0px 10px rgba(0,0,0,.2);
+}
+
+.LandingButton {
+    position: fixed;
+    bottom: 300px;
+    left: 580px;
+    font-family:"MS Sans Serif";
+    font-size:25px;
+    outline:2px solid #000000;
+    background:#C0C0C0;
+    border-width:1.5px;
+    border-style:solid;
+    border-color:#FFFFFF #808080 #808080;
+}
+
+.LandingButton:hover {
+    background: #dfdfdf;
+    text-decoration: none;
+}

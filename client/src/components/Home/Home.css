@@ -1,0 +1,59 @@
+.grid-container {
+    display: grid;
+    gap: 10px;
+    grid-template-areas: 
+    "navBar"
+    "searchBar"
+    "appTitle"
+    "filters"
+    "pagination"
+    "cards-content"
+    "refreshButtonDiv";
+}
+
+@media (min-width: 600px) {
+    .grid-container {
+        grid-template-rows: 75px 30px 100px 50px 50px auto 50px;
+    }
+}
+
+.HomeContainer {
+    background-image: url("https://s27363.pcdn.co/wp-content/uploads/2020/05/Santorini-Sunset.jpg.optimal.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.navBar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cards-content {    
+    display: flex;
+    justify-content: space-around;
+}
+
+.cards-grid {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.refreshButton {    
+    cursor: pointer;
+    font-family:"MS Sans Serif";
+    font-size: 17px;
+    outline: 2px solid #000000;
+    background:#C0C0C0;
+    color:#000000;
+    border-width:1.5px;
+    border-style:solid;
+    border-color:#FFFFFF #808080 #808080;
+}
+
+.refreshButton:hover {
+    background: #dfdfdf;
+    text-decoration: none;
+}

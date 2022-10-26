@@ -1,0 +1,22 @@
+.navContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.navButton {    
+    font-family:"MS Sans Serif";
+    outline:2px solid #000000;
+    background:#C0C0C0;
+    color:#000000;
+    border-width:1.5px;
+    border-style:solid;
+    border-color:#FFFFFF #808080 #808080;
+}
+
+.navButton:hover {
+    background: #dfdfdf;
+    text-decoration: none;
+}

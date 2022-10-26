@@ -5,6 +5,8 @@ import { getAllActivities, getAllCountries, filterByActivity, filterByContinent,
 import Card from '../Card/Card'
 import Pagination from '../Pagination/Pagination';
 import NavBar from '../NavBar/NavBar';
+import SearchBar from '../SearchBar/SearchBar';
+import './Home.css'
 
 export default function Home () {
     const dispatch = useDispatch();
@@ -47,8 +49,6 @@ export default function Home () {
         }
     }
 
-     //Equivale a componentDidMount
-
     function handleClick(e) {
         e.preventDefault();
         dispatch(getAllCountries());    
@@ -79,65 +79,79 @@ export default function Home () {
     }
 
     return (
-        <div>            
-            <NavBar />            
-            <h1>
-                Countries Henry App
-            </h1>
-            <div>
-                <select onChange = {e => handleFilterByActivity(e)}>
-                    <option value = "all">Select Activity</option>
-                    <option value = "noA">Without Activities</option>
-                    {allActivities?.map((c) => {
-                        return (
-                            <option value = {c.name}>{c.name}</option>
-                        )
-                    })}
-                </select>
+        <div className = "HomeContainer"> 
+            <div className = "grid-container">   
 
-                <select onChange = {e => handleFilterByContinent(e)} >
-                    <option value = "All">Select Continent</option>
-                    <option value = "Asia">Asia</option>
-                    <option value = "South America">South America</option>
-                    <option value = "North America">North America</option>
-                    <option value = "Europe">Europe</option>
-                    <option value = "Oceania">Oceania</option>
-                    <option value = "Antarctica">Antarctica</option>
-                    <option value = "Africa">Africa</option>
-                </select>
+                <NavBar className = "navBar" />  
 
-                <select defaultValue = {"default"} onChange={(e) => handleSortByName(e)}>
-                    <option value="default" disabled> Sort by Name </option>
-                    <option value="asc">A-Z</option>
-                    <option value="des">Z-A</option>
-                </select>
+                <SearchBar className = "searchBar" setCurrentPage = {setCurrentPage}/>          
+                <h1 className = "appTitle">
+                    Countries Henry App
+                </h1>
 
-                <select defaultValue={"default"} onChange={(e) => handleSortByPopulation(e)}>
-                    <option value="default" disabled>Sort by Population</option>
-                    <option value="des">Higher Population</option>
-                    <option value="asc">Lower Population</option>
-                </select>
+                <div className = "filters">
+                    <select onChange = {e => handleFilterByActivity(e)}>
+                        <option value = "all">Select Activity</option>
+                        {allActivities?.map((c) => {
+                            return (
+                                <option value = {c.name}>{c.name}</option>
+                            )
+                        })}
+                    </select>
 
-                <Pagination 
-                    allCountries = {allCountries.length}
-                    countriesPerPage = {countriesPerPage}
-                    pagination = {pagination}
-                />
+                    <select onChange = {e => handleFilterByContinent(e)} >
+                        <option value = "All">Select Continent</option>
+                        <option value = "Asia">Asia</option>
+                        <option value = "South America">South America</option>
+                        <option value = "North America">North America</option>
+                        <option value = "Europe">Europe</option>
+                        <option value = "Oceania">Oceania</option>
+                        <option value = "Antarctica">Antarctica</option>
+                        <option value = "Africa">Africa</option>
+                    </select>
 
-                {currentCountries && currentCountries?.map((c) => {
-                    return (
-                        <Card 
-                        id = {c.id}
-                        name = {c.name} 
-                        flag = {c.flag} 
-                        continent = {c.continent}/>
-                    )                    
-                })
-                }            
-            </div>
-            <button onClick = {e => {handleClick(e)}}>
-                Refresh Countries List
-            </button>
+                    <select defaultValue = {"default"} onChange={(e) => handleSortByName(e)}>
+                        <option value="default" disabled> Sort by Name </option>
+                        <option value="asc">A-Z</option>
+                        <option value="des">Z-A</option>
+                    </select>
+
+                    <select defaultValue={"default"} onChange={(e) => handleSortByPopulation(e)}>
+                        <option value="default" disabled>Sort by Population</option>
+                        <option value="des">Higher Population</option>
+                        <option value="asc">Lower Population</option>
+                    </select>
+
+                </div>
+
+                    <Pagination
+                        className = 'pagination' 
+                        allCountries = {allCountries.length}
+                        countriesPerPage = {countriesPerPage}
+                        pagination = {pagination}
+                    />
+
+                <div className='cards-content'>
+                    <div className = 'cards-grid'>
+                        {currentCountries && currentCountries?.map((c) => {
+                            return (
+                                <Card 
+                                id = {c.id}
+                                name = {c.name} 
+                                flag = {c.flag} 
+                                continent = {c.continent}/>
+                            )                    
+                        })
+                        }      
+                    </div>      
+                </div>
+
+                <div className = 'refreshButtonDiv'>
+                <button className = "refreshButton" onClick = {e => {handleClick(e)}}>
+                    Refresh Countries List
+                </button>
+                </div>
+            </div>      
         </div>
     )
 

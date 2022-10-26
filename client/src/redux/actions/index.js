@@ -76,6 +76,7 @@ export const getAllActivities = () => async dispatch => {
           type: GET_ALL_ACTIVITIES, 
           payload: json })
   })
+  
 };
 
 export const filterByActivity = (payload) => {

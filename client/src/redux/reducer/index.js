@@ -37,9 +37,9 @@ const rootReducer = (state = initialState, action) => {
             } 
         case FILTER_BY_ACTIVITY:
             const toFilterByActivity = state.allCountries;
-            const activityFilter = action.payload === 'all' || action.payload === 'noA' ? 
-                toFilterByActivity :
-                toFilterByActivity.filter(c => c.activities.name === action.payload)
+            const activityFilter = action.payload === 'all' ? toFilterByActivity :
+                toFilterByActivity.filter(c => c.activities.find((a) => a.name.toLowerCase() === action.payload.toLowerCase()));
+                console.log('Filtro', activityFilter)
             return {
                 ...state,
                 countries: activityFilter
