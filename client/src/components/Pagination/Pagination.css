@@ -1,7 +1,11 @@
 .paginationBar {
     display: flex;
-    justify-content: center;
+    justify-content: center;    
     margin-bottom: 30px;
-    list-style-type: none;    
+    list-style-type: none;   
+}
+
+.paginationNumber {
+    cursor: pointer;   
 }
 

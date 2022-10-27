@@ -1,0 +1,45 @@
+.p {
+    color:red
+}
+
+.createActivityGrid {
+    display: grid;
+    gap: 10px;
+    grid-template-areas: 
+    "navBarCreate"
+    "contentCreate"
+    "buttonCreateHome"
+}
+
+@media (min-width: 3000px) {
+    .createActivityGrid {
+        grid-template-rows: 50px 75px 50px;
+    }
+}
+
+.navBarCreate {
+    background-image: url("https://s27363.pcdn.co/wp-content/uploads/2020/05/Santorini-Sunset.jpg.optimal.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 25px
+}
+
+.buttonCreateHome {    
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    font-family:"MS Sans Serif";
+    font-size: 17px;
+    outline: 2px solid #000000;
+    background:#C0C0C0;
+    color:#000000;
+    border-width:1.5px;
+    border-style:solid;
+    border-color:#FFFFFF #808080 #808080;
+}
+
+.buttonCreateHome:hover {
+    background: #dfdfdf;
+    text-decoration: none;
+}

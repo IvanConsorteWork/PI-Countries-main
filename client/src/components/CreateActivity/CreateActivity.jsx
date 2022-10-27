@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../NavBar/NavBar";
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCountries, createActivity, getAllActivities } from "../../redux/actions/index";
+import './CreateActivity.css';
 
 export default function CreateActivity () {
     const dispatch = useDispatch();
@@ -40,7 +41,7 @@ export default function CreateActivity () {
             errors.season = "*Please select a season*";
         }
 
-        if(input.relatedCountries === []) {
+        if(input.relatedCountries.length === 0) {
             errors.relatedCountries = "*Please select a country*";
         }
 
@@ -70,17 +71,19 @@ export default function CreateActivity () {
 
     function handleCountrySelect(e) {
         if (input.relatedCountries.includes(e.target.value)) {
-        return alert("You've already selected that country");
+            e.target.value = 'default';
+            return alert("You've already selected that country")
         } else {
         setInput({
             ...input,
-            relatedCountries:[...input.relatedCountries,e.target.value]
+            relatedCountries:[...input.relatedCountries, e.target.value]
         })
         setErrors(validate({
             ...input,
             [e.target.name]: e.target.value
-        }))
+        }))        
         }
+        e.target.value = 'default';
     }
 
     function handleSelect(e){
@@ -126,91 +129,101 @@ export default function CreateActivity () {
         }, [dispatch]);
 
     return (
-        <div>
-            <NavBar />
-        <div>            
-            <h1>Create your Activity!</h1>
-            <form onSubmit = {e => handleSubmit(e)}>
-                <div>
-                    <label>Activity: </label>
-                    <input
-                    type = "text"
-                    value = {input.name}
-                    name = "name"
-                    onChange = {handleChange}
-                    />
-                    {errors.name && (
-                        <p>{errors.name}</p>
+        <div className = 'createActivityGrid'>
+            <div className = 'navBarCreate'>    
+                <NavBar />
+            </div>
+            <div className = "contentCreate">            
+                <h1>Create your Activity!</h1>
+                <br></br>
+                <form onSubmit = {e => handleSubmit(e)}>
+                    <div>
+                        <label>Activity: </label>
+                        <input
+                        type = "text"
+                        value = {input.name}
+                        name = "name"
+                        onChange = {handleChange}
+                        />
+                        {errors.name && (
+                            <p className = "p">{errors.name}</p>
+                        )}
+                    </div>
+                    <br></br>
+                    <div>
+                        <label>Difficulty: </label>
+                        <select defaultValue = {'default'} name = "difficulty" onChange = {e => handleSelect(e)}>
+                            <option value ='default' disabled>Difficulty</option>
+                            <option value ="1">1</option>
+                            <option value ="2">2</option>
+                            <option value ="3">3</option>
+                            <option value ="4">4</option>
+                            <option value ="5">5</option>
+                        </select>
+                    </div>
+                    <div>
+                    {errors.difficulty && (
+                        <p className = "p">{errors.difficulty}</p>
                     )}
-                </div>
-                <div>
-                    <label>Difficulty: </label>
-                    <select defaultValue = {'default'} name = "difficulty" onChange = {e => handleSelect(e)}>
-                        <option value ='default' disabled>Difficulty</option>
-                        <option value ="1">1</option>
-                        <option value ="2">2</option>
-                        <option value ="3">3</option>
-                        <option value ="4">4</option>
-                        <option value ="5">5</option>
-                    </select>
-                </div>
-                <div>
-                {errors.difficulty && (
-                    <p>{errors.difficulty}</p>
+                    </div>
+                    <br></br>
+                    <div>
+                        <label>Duration: </label>
+                        <input
+                        type = "text"
+                        value = {input.duration}
+                        name = "duration"
+                        onChange = {handleChange}
+                        />
+                        {errors.duration && (
+                            <p className = "p">{errors.duration}</p>
+                        )}
+                    </div>
+                    <br></br>
+                    <div>
+                        <label>Season: </label>
+                        <select defaultValue = {'default'} name = "season" onChange = {e => handleSelect(e)}>
+                            <option value='default' disabled>Season</option>
+                            <option value="summer">Summer</option>
+                            <option value="winter">Winter</option>
+                            <option value="autumn">Autumn</option>
+                            <option value="spring">Spring</option>
+                        </select>
+                    </div>
+                    <div>
+                    {errors.season && (
+                        <p className = "p">{errors.season}</p>
+                    )}
+                    </div>
+                    <br></br>
+                    <div>
+                        <select defaultValue = {'default'} name = "relatedCountries" onChange = {e => handleCountrySelect(e)}>
+                            <option value = 'default' disabled>Select Country</option>
+                                {countries.map(c => (
+                                    <option value = {c.name}>{c.name}</option>
+                                ))}                    
+                        </select>
+                        {errors.relatedCountries && (
+                                <p className = "p">{errors.relatedCountries}</p>
+                            )}
+                    </div>
+                    <br></br>
+                    <button type ='submit' disabled = {!buttonEnabled}>Create</button>
+                </form>
+                <br></br>
+                {input.relatedCountries.map(c =>
+                    <div>
+                        <p>{c}         
+                        <button onClick = {() => handleDelete(c)}>X</button>
+                        </p>
+                        <br></br>
+                    </div>
                 )}
-                </div>
-                <div>
-                    <label>Duration: </label>
-                    <input
-                    type = "text"
-                    value = {input.duration}
-                    name = "duration"
-                    onChange = {handleChange}
-                    />
-                    {errors.duration && (
-                        <p>{errors.duration}</p>
-                    )}
-                </div>
-                <div>
-                    <label>Season: </label>
-                    <select defaultValue = {'default'} name = "season" onChange = {e => handleSelect(e)}>
-                        <option value='default' disabled>Season</option>
-                        <option value="summer">Summer</option>
-                        <option value="winter">Winter</option>
-                        <option value="autumn">Autumn</option>
-                        <option value="spring">Spring</option>
-                    </select>
-                </div>
-                <div>
-                {errors.season && (
-                    <p>{errors.season}</p>
-                )}
-                </div>
-                <div>
-                <select defaultValue = {'default'} name = "relatedCountries" onChange = {e => handleCountrySelect(e)}>
-                <option value = 'default' disabled>Select Country</option>
-                    {countries.map(c => (
-                        <option value = {c.name}>{c.name}</option>
-                    ))}
-                
-                </select>
-                {errors.relatedCountries && (
-                        <p>{errors.relatedCountries}</p>
-                    )}
-                </div>
-                <button type ='submit' disabled = {!buttonEnabled}>Create</button>
-            </form>
-            {input.relatedCountries.map(c =>
-                <div>
-                    <p>{c}         
-                    <button onClick = {() => handleDelete(c)}>X</button>
-                    </p>
-                </div>
-            )}
-        </div>
-            <Link to = '/home'>
-                <button>Back to Home</button>
-            </Link>                
+            </div>
+            <br></br>
+                <NavLink to = '/home'>
+                    <button>Back to Home</button>
+                </NavLink>            
         </div>
     )
 }

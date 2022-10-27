@@ -13,12 +13,12 @@ export default function Home () {
 
     useEffect(() => {
         dispatch(getAllActivities());
-        dispatch(getAllCountries())           
+        dispatch(getAllCountries())
     }, [dispatch])
-    
+
     const allActivities = useSelector((state) => state.activities);
     const allCountries = useSelector((state) => state.countries);
-    
+
     const [sortName, setSortName] = useState("");
     const [sortPopulation, setSortPopulation] = useState("");
 
@@ -26,8 +26,8 @@ export default function Home () {
     const [countriesPerPage, setCountriesPerPage] = useState(9);
 
     const indexOfLastCountry = currentPage * countriesPerPage;
-    const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;    
-    
+    const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
+
     const findCurrentCountries = () => {
         try {
             return allCountries.slice(indexOfFirstCountry, indexOfLastCountry)
@@ -38,11 +38,14 @@ export default function Home () {
     }
 
     const currentCountries = findCurrentCountries();
-    
+
     const pagination = (pageNumber) => {
         if (pageNumber === 1) {
             setCountriesPerPage(9);
             setCurrentPage(pageNumber)
+        } else if (pageNumber > 25) {
+            setCountriesPerPage(10);
+            setCurrentPage(25)
         } else {
             setCountriesPerPage(10);
             setCurrentPage(pageNumber)
@@ -51,7 +54,16 @@ export default function Home () {
 
     function handleClick(e) {
         e.preventDefault();
-        dispatch(getAllCountries());    
+        dispatch(getAllCountries());
+    }
+
+    function handlePaginationClick(e) {
+        let aux = currentPage;
+        if (e.target.id === "previous" && currentPage !== 1) {
+            setCurrentPage(--aux)
+        } else if (e.target.id === "next" && currentPage < 25) {
+            setCurrentPage(++aux)
+        }
     }
 
     function handleFilterByActivity (e) {
@@ -67,24 +79,25 @@ export default function Home () {
     function handleSortByName(e) {
         e.preventDefault();
         dispatch(sortByName(e.target.value));
-        setCurrentPage(1); 
-        setSortName(`Sort ${e.target.value}`); 
+        setCurrentPage(1);
+        setSortName(`Sort ${e.target.value}`);
     }
 
     function handleSortByPopulation(e) {
         e.preventDefault();
         dispatch(sortByPopulation(e.target.value));
-        setCurrentPage(1); 
-        setSortPopulation(`Sort ${e.target.value}`); 
+        setCurrentPage(1);
+        setSortPopulation(`Sort ${e.target.value}`);
     }
 
     return (
-        <div className = "HomeContainer"> 
-            <div className = "grid-container">   
+        <div className = "HomeContainer">
+            <div className = "grid-container">
 
-                <NavBar className = "navBar" />  
+                <NavBar className = "navBar" />
 
-                <SearchBar className = "searchBar" setCurrentPage = {setCurrentPage}/>          
+                <SearchBar className = "searchBar" setCurrentPage = {setCurrentPage}/>
+
                 <h1 className = "appTitle">
                     Countries Henry App
                 </h1>
@@ -124,34 +137,39 @@ export default function Home () {
 
                 </div>
 
+                <div className = 'pagination'>
+                    <button className = 'previousNext' id = "previous" onClick = {e => {handlePaginationClick(e)}}>Previous</button>
                     <Pagination
-                        className = 'pagination' 
                         allCountries = {allCountries.length}
+                        currentPage = {currentPage}
                         countriesPerPage = {countriesPerPage}
+                        setCurrentPage = {setCurrentPage}
                         pagination = {pagination}
                     />
+                    <button className = 'previousNext' id = "next" onClick = {e => {handlePaginationClick(e)}}>Next</button>
+                </div>
 
                 <div className='cards-content'>
                     <div className = 'cards-grid'>
                         {currentCountries && currentCountries?.map((c) => {
                             return (
-                                <Card 
+                                <Card
                                 id = {c.id}
-                                name = {c.name} 
-                                flag = {c.flag} 
+                                name = {c.name}
+                                flag = {c.flag}
                                 continent = {c.continent}/>
-                            )                    
+                            )
                         })
-                        }      
-                    </div>      
+                        }
+                    </div>
                 </div>
 
                 <div className = 'refreshButtonDiv'>
-                <button className = "refreshButton" onClick = {e => {handleClick(e)}}>
-                    Refresh Countries List
-                </button>
+                    <button className = "refreshButton" onClick = {e => {handleClick(e)}}>
+                        Refresh Countries List
+                    </button>
                 </div>
-            </div>      
+            </div>
         </div>
     )
 

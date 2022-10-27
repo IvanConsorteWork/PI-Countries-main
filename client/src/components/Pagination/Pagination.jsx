@@ -1,7 +1,7 @@
 import React from 'react';
 import './Pagination.css';
 
-export default function pagination ({ allCountries, countriesPerPage, pagination  }) {
+export default function pagination ({ allCountries, countriesPerPage, pagination, currentPage, setCurrentPage}) {
     const pageNumber = [];
     for (let i = 1; i <= Math.ceil(allCountries/countriesPerPage); i++) {
         pageNumber.push(i)
@@ -15,13 +15,14 @@ export default function pagination ({ allCountries, countriesPerPage, pagination
                     return (
                         <li className = 'paginationNumber' key = {number}>
                         <button onClick={() => pagination(number)}>
-                        {number}
+                            {number}
                         </button>
                         </li>
                     )                   
                 }) 
-                }
+                }               
             </ul>
         </nav>
     )
 }
+

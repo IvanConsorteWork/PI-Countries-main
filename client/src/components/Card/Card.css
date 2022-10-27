@@ -1,7 +1,18 @@
-.card {
+/* .card {
     width: 250px;
     height: 320px;
     color:black;    
+} */
+
+.card {
+    padding: 10px;
+    border: solid 1px rgba(202, 202, 202, 0.127);
+    border-radius: 0px 15px  0px 15px;
+    margin-top: 20px;
+    background-color: rgba(224, 224, 224, 0.066);        
+    backdrop-filter: blur(1px);
+    transition: all 0.2s ease;
+    text-decoration: none;
 }
 
 .card:hover {
