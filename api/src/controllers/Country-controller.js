@@ -27,6 +27,31 @@ const { Country, Activity } = require("../db");
     }
   };
 
+  const getCountryByActivity = async (req, res) => {
+      const { activity } = req.params;
+      try {
+          const findActivity = await Activity.findAll({
+              where: {
+                  name: activity
+              }
+          })
+          if (findActivity === []) {
+              throw new Error
+          }
+          const countriestoFind = findActivity.map(c => findActivity.relatedCountries)
+          const findCountries = await Country.findAll({
+            where: {
+            name: {
+                [Op.in]: countriestoFind
+            }
+            }}
+          )
+          res.json(findCountries)         
+      } catch (e) {
+         res.status(404).json({msg: 'Activity not found'})
+      }
+  }
+
   
   const getCountryById = async (req, res) => {
     const { id } =  req.params;
@@ -45,6 +70,7 @@ const { Country, Activity } = require("../db");
 
   module.exports = {
     getCountries, 
+    getCountryByActivity,
     getCountryById
   }
 

@@ -52,23 +52,40 @@ export default function CardDetails (props) {
                     <div className = "flagDetails">
                         <img src = {myCountry.flag} alt="country flag"/>
                     </div>
+                    <br></br>
                     <div className = 'countryDetailsBody'>
                         <div className = "countryDetails">                   
                             <h1>Name: {myCountry.name}</h1>
+                            <br></br>
                             <h2>Id: {myCountry.id}</h2>
+                            <br></br>
                             <h3>Capital: {myCountry.capital}</h3>
+                            <br></br>
                             <h3>Subregion: {myCountry.subregion}</h3>
+                            <br></br>
                             <h3>Area: {myCountry.area}</h3>
+                            <br></br>
                             <h3>Population: {myCountry.population}</h3>
+                            <br></br>
                         </div>
+                        <br></br>
+                        <br></br>
+                        <br></br>
                         <div className = 'coutryActivities'>
                             {checkActivities()}
+                            <br></br>
                             {myCountry.activities?.map(e => <div>
                                 <ul>
                                     <li>Name: {e.name}</li>
+                                    <br></br>
                                     <li>Difficulty: {e.difficulty}</li>
+                                    <br></br>
                                     <li>Duration: {e.duration}</li>
+                                    <br></br>
                                     <li>Season: {e.season}</li>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
                                 </ul>
                             </div>
                             )}

@@ -61,7 +61,7 @@ export default function Home () {
         let aux = currentPage;
         if (e.target.id === "previous" && currentPage !== 1) {
             setCurrentPage(--aux)
-        } else if (e.target.id === "next" && currentPage < 25) {
+        } else if (e.target.id === "next" && currentPage < 25 && currentCountries.length >= 9) {
             setCurrentPage(++aux)
         }
     }
@@ -105,9 +105,9 @@ export default function Home () {
                 <div className = "filters">
                     <select onChange = {e => handleFilterByActivity(e)}>
                         <option value = "all">Select Activity</option>
-                        {allActivities?.map((c) => {
+                        {allActivities?.map((a) => {
                             return (
-                                <option value = {c.name}>{c.name}</option>
+                                <option value = {a.name}>{a.name}</option>
                             )
                         })}
                     </select>

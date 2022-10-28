@@ -106,8 +106,9 @@ export default function CreateActivity () {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log(activities)
-        if(activities.includes(input.name)) {
+        let validateName = activities.find(a => a.name === (input.name))
+        console.log(validateName)
+        if(validateName !== undefined) {
             alert("Activity by that name already exists!")
         } else {
             dispatch(createActivity(input))
