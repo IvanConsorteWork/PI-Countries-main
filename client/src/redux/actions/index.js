@@ -12,48 +12,86 @@ export const SORT_BY_NAME = "SORT_BY_NAME";
 export const SORT_BY_POPULATION = "SORT_BY_POPULATION";
 
 
-export const getAllCountries = () => async dispatch => {
-  return fetch('http://localhost:3001/countries')
-  .then(response => response.json())
-  .then(json => {
-      dispatch({ 
-          type: GET_ALL_COUNTRIES, 
-          payload: json })
-  })
-};
+// export const getAllCountries = () => async dispatch => {
+//   return fetch('/countries')
+//   .then(response => response.json())
+//   .then(json => {
+//       dispatch({ 
+//           type: GET_ALL_COUNTRIES, 
+//           payload: json })
+//   })
+// };
 
-export const getCountryByName = (name) => async dispatch => {
+export function getAllCountries() {
+  return async function (dispatch) {
+    var json = await axios.get("/countries");
+    return dispatch({
+      type: GET_ALL_COUNTRIES,
+      payload: json.data,
+    });
+  };
+}
+
+// export const getCountryByName = (name) => async dispatch => {
+//     try {
+//       return fetch(`/countries?name=${name}`)
+//       .then(response => response.json())
+//       .then(json => {
+//           dispatch({ 
+//               type: GET_COUNTRY_BY_NAME, 
+//               payload: json })
+//           })
+//     } catch (e) {      
+//         alert(e)
+//     }    
+// };
+
+export function getCountryByName(name){
+  return async function (dispatch){
     try {
-      return fetch(`http://localhost:3001/countries?name=${name}`)
-      .then(response => response.json())
-      .then(json => {
-          dispatch({ 
-              type: GET_COUNTRY_BY_NAME, 
-              payload: json })
-          })
-    } catch (e) {      
-        alert(e)
-    }    
-};
+      var json=await axios.get(`/countries?name=${name}`)
+      return dispatch({
+        type: GET_COUNTRY_BY_NAME,
+        payload: json.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  }
 
-export const getCountryDetails = (id) => async dispatch => {
-  try {
-    return fetch(`http://localhost:3001/countries/${id}`)
-    .then(response => response.json())
-    .then(json => {
-        dispatch({ 
-            type: GET_COUNTRY_DETAILS, 
-            payload: json})
-        })
-  } catch (e) {      
-      alert(e)
-  }    
-};
+// export const getCountryDetails = (id) => async dispatch => {
+//   try {
+//     return fetch(`/countries/${id}`)
+//     .then(response => response.json())
+//     .then(json => {
+//         dispatch({ 
+//             type: GET_COUNTRY_DETAILS, 
+//             payload: json})
+//         })
+//   } catch (e) {      
+//       alert(e)
+//   }    
+// };
+
+export function getCountryDetails(id){
+  return async function(dispatch){
+    try {
+      var json=await axios.get(`/countries/${id}`)  
+      return dispatch({
+        type: GET_COUNTRY_DETAILS,
+        payload: json.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 export const createActivity = (payload) => {
     return async function (dispatch) {
       try {
-        var response = await axios.post('http://localhost:3001/activities', payload);
+        var response = await axios.post('/activities', payload);
         return response
       } catch (e) {
         alert(e)
@@ -68,15 +106,25 @@ export const createActivity = (payload) => {
 //     }
 //  };
 
-export const getAllActivities = () => async dispatch => {
-  return fetch('http://localhost:3001/activities')
-  .then(response => response.json())
-  .then(json => {
-      dispatch({ 
-          type: GET_ALL_ACTIVITIES, 
-          payload: json })
-  })  
-};
+// export const getAllActivities = () => async dispatch => {
+//   return fetch('/activities')
+//   .then(response => response.json())
+//   .then(json => {
+//       dispatch({ 
+//           type: GET_ALL_ACTIVITIES, 
+//           payload: json })
+//   })  
+// };
+
+export function getAllActivities(){
+  return async function (dispatch){
+      var json=await axios.get(`/activities`)
+      return dispatch({
+        type: "GET_ALL_ACTIVITIES",
+        payload: json.data
+      });
+  }
+} 
 
 export const filterByActivity = (payload) => {
     return {
