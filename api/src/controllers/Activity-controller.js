@@ -3,7 +3,10 @@ const { Op } = require('sequelize');
 
 const getActivity = async (req, res) => {
     try {
-        const activities = await Activity.findAll({order: [[
+        const activities = await Activity.findAll({include: {
+            model: Country
+            }, 
+            order: [[
             'name', 'ASC'
           ]]})
         res.status(200).send(activities)    
@@ -46,22 +49,47 @@ const postActivity = async (req, res) => {
     }
 }
 
-// const deleteActivity = async (req, res) => {
-//     const { id } = req.query 
-//     try {
-//         const activityToDelete = await Activity.findByPk(id)
-//         if(!activityToDelete) {
-//             res.status(404).send({message: 'Activity not found'}) 
-//         } else {
-//             activityToDelete.destroy()
-//         }
-//         res.send({message: 'Activity deleted successfully'})
-//     } catch (e) {
-//         console.log(e)
-//     }
-// }
+const deleteActivity = async (req, res) => {
+    const { id } = req.query;
+    try {
+        const activityToDelete = await Activity.findByPk(id);
+        if(!activityToDelete) {
+            return res.status(404).send({message: 'Activity not found'}) 
+        } else {
+            activityToDelete.destroy()
+        }
+        res.send({message: 'Activity deleted successfully'})
+    } catch (e) {
+        console.log(e)
+    }
+}
 
-  module.exports = {
-      getActivity,
-      postActivity
-  }
+const putActivity = async (req, res) => {
+    const { id } = req.query;
+    const { newName, newDifficulty, newDuration, newSeason, newRelatedCountries } = req.body;
+    try {        
+        const targetActivity = await Activity.findByPk(id);
+        if (!targetActivity) {
+            res.send("Activity not found");
+        } else {            
+            const updateActivity = await targetActivity.update({ 
+                name: newName, 
+                difficulty: newDifficulty, 
+                duration: newDuration, 
+                season: newSeason
+                })
+            await updateActivity.save();  
+            // RESOLVER COMO ACTUALIZAR LOS PAISES
+            res.send("Activity successfully updated");
+        }
+    } catch (error) {
+        res.json( error.message );
+    }
+}
+
+module.exports = {
+    deleteActivity,
+    getActivity,
+    postActivity,
+    putActivity
+}

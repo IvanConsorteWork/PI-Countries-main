@@ -20,8 +20,9 @@
 const server = require('./src/app.js');
 const { conn, Country } = require('./src/db.js');
 const axios = require('axios');
+const { PORT } = process.env;
 
-async function chargeCountries () {
+async function saveCountriesFromApiInDb () {
   try {
       const verifyDB = await Country.findAll();
       if (!verifyDB.length > 0) {
@@ -47,8 +48,8 @@ async function chargeCountries () {
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(async () => {
-  await chargeCountries();
-  server.listen(process.env.PORT, () => {
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
+  await saveCountriesFromApiInDb();
+  server.listen(PORT, () => {
+    console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
   });
 });
