@@ -25,7 +25,7 @@ export default function SearchBar ({setCurrentPage}) {
                 setName("");
                 setCurrentPage(1);
             } catch (e) {
-                alert(e)
+                console.log(e)
             }              
     }    
 

@@ -30,7 +30,7 @@ export function getCountryByName(name){
         payload: json.data
       })
     } catch (error) {
-      console.log(error)
+      alert('Country not found')
     }
   }
   }
