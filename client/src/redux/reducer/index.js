@@ -5,8 +5,6 @@ const initialState = {
   allCountries: [],
   countries: [],
   countryDetail: [],
-  // filterByActivity: [],
-  // filterByContinent: [],
 }
 
 const rootReducer = (state = initialState, action) => {

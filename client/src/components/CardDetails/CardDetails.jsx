@@ -5,7 +5,7 @@ import { getCountryDetails } from '../../redux/actions';
 import { useEffect, useState } from "react";
 import { NavLink } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
-import './CardDetails.css';
+import styles from './CardDetails.module.css';
 
 export default function CardDetails (props) {
     const dispatch = useDispatch();
@@ -40,21 +40,21 @@ export default function CardDetails (props) {
     }
 
     return (
-        <div className = 'cardDetailsGrid'>
-            <div className = 'navBarDetails'>
+        <div className = {styles.cardDetailsGrid}>
+            <div className = {styles.navBarDetails}>
                 <NavBar />
             </div>
-            <div className="contentDetails">
+            <div className={styles.contentDetails}>
             {
                 countryLoad ?
                 <p>Loading...</p> :                 
                 <div>
-                    <div className = "flagDetails">
+                    <div className = {styles.flagDetails}>
                         <img src = {myCountry.flag} alt="country flag"/>
                     </div>
                     <br></br>
-                    <div className = 'countryDetailsBody'>
-                        <div className = "countryDetails">                   
+                    <div className = {styles.countryDetailsBody}>
+                        <div className = {styles.countryDetails}>                   
                             <h1>Name: {myCountry.name}</h1>
                             <br></br>
                             <h2>Id: {myCountry.id}</h2>
@@ -71,7 +71,7 @@ export default function CardDetails (props) {
                         <br></br>
                         <br></br>
                         <br></br>
-                        <div className = 'coutryActivities'>
+                        <div className = {styles.coutryActivities}>
                             {checkActivities()}
                             <br></br>
                             {myCountry.activities?.map(e => <div key={e}>
@@ -94,8 +94,8 @@ export default function CardDetails (props) {
                 </div>                
             }            
             </div>
-            <div className = 'buttonDetailsLocation'>
-            <NavLink to = '/home' className = "buttonDetails">Back to Home</NavLink>
+            <div className = {styles.buttonDetailsLocation}>
+            <NavLink to = '/home' className = {styles.buttonDetails}>Back to Home</NavLink>
             </div>            
         </div>
     )   

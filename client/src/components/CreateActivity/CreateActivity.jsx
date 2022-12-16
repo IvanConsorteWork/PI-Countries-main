@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCountries, createActivity, getAllActivities } from "../../redux/actions/index";
-import './CreateActivity.css';
+import styles from './CreateActivity.module.css';
 
 export default function CreateActivity () {
     const dispatch = useDispatch();
@@ -129,11 +129,11 @@ export default function CreateActivity () {
         }, [dispatch]);
 
     return (
-        <div className = 'createActivityGrid'>
-            <div className = 'navBarCreate'>    
+        <div className = {styles.createActivityGrid}>
+            <div className = {styles.navBarCreate}>    
                 <NavBar />
             </div>
-            <div className = "contentCreate">            
+            <div className = {styles.contentCreate}>            
                 <h1>Create your Activity!</h1>
                 <br></br>
                 <form onSubmit = {e => handleSubmit(e)}>

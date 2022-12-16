@@ -1,12 +1,12 @@
 import React from 'react';
 import NavBar from '../NavBar/NavBar.jsx';
 import { Link } from 'react-router-dom';
-import './About.css';
+import styles from './About.module.css';
 
 export default function About () {
     return (
         <div>
-            <div className='navBarAbout'>
+            <div className={styles.navBarAbout}>
                 <NavBar />
             </div>
             <br></br>

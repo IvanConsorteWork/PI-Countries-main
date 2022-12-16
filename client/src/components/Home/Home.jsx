@@ -6,7 +6,7 @@ import Card from '../Card/Card'
 import Pagination from '../Pagination/Pagination';
 import NavBar from '../NavBar/NavBar';
 import SearchBar from '../SearchBar/SearchBar';
-import './Home.css'
+import './Home.css';
 
 export default function Home () {
     const dispatch = useDispatch();
@@ -17,44 +17,36 @@ export default function Home () {
     }, [dispatch])
 
     const allActivities = useSelector((state) => state.activities);
-    const allCountries = useSelector((state) => state.countries);
+    const allCountries = useSelector((state) => state.allCountries);
+    const countries = useSelector((state) => state.countries);
 
     const [sortName, setSortName] = useState("");
     const [sortPopulation, setSortPopulation] = useState("");
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [countriesPerPage, setCountriesPerPage] = useState(9);
+    let currentCountries
+    let totalPages = Math.ceil(countries.length / 10) + 1;
 
-    const indexOfLastCountry = currentPage * countriesPerPage;
-    const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
+    if (currentPage === 1) {
+        currentCountries = countries.slice(0, 9);
+      } else {
+        currentCountries = countries.slice(
+          (currentPage - 1) * 10 - 1, 
+          (currentPage - 1) * 10 + 9
+        );
+      }
 
-    const currentCountries = allCountries.slice(indexOfFirstCountry, indexOfLastCountry);
+    if (countries.length < allCountries.length) {
+        totalPages = Math.ceil(countries.length / 10);
+      }
 
-    const pagination = (pageNumber) => {
-        if (pageNumber === 1) {
-            setCountriesPerPage(9);
-            setCurrentPage(pageNumber)
-        } else if (pageNumber > 25) {
-            setCountriesPerPage(10);
-            setCurrentPage(25)
-        } else {
-            setCountriesPerPage(10);
-            setCurrentPage(pageNumber)
-        }
-    }
+    const paginate = (number) => {
+        setCurrentPage(currentPage + number);
+    };
 
     function handleClick(e) {
         e.preventDefault();
         dispatch(getAllCountries());
-    }
-
-    function handlePaginationClick(e) {
-        let aux = currentPage;
-        if (e.target.id === "previous" && currentPage !== 1) {
-            setCurrentPage(--aux)
-        } else if (e.target.id === "next" && currentPage < 25 && currentCountries.length >= 9) {
-            setCurrentPage(++aux)
-        }
     }
 
     function handleFilterByActivity (e) {
@@ -129,15 +121,12 @@ export default function Home () {
                 </div>
 
                 <div className = 'pagination'>
-                    <button className = 'previousNext' id = "previous" onClick = {e => {handlePaginationClick(e)}}>Previous</button>
                     <Pagination
-                        allCountries = {allCountries.length}
-                        currentPage = {currentPage}
-                        countriesPerPage = {countriesPerPage}
-                        setCurrentPage = {setCurrentPage}
-                        pagination = {pagination}
+                        totalPages={totalPages}
+                        paginate={paginate}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
                     />
-                    <button className = 'previousNext' id = "next" onClick = {e => {handlePaginationClick(e)}}>Next</button>
                 </div>
 
                 <div className='cards-content'>
@@ -164,5 +153,4 @@ export default function Home () {
             </div>
         </div>
     )
-
 }

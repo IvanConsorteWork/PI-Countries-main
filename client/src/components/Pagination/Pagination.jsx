@@ -1,28 +1,56 @@
 import React from 'react';
-import './Pagination.css';
+import styles from "./Pagination.module.css";
 
-export default function pagination ({ allCountries, countriesPerPage, pagination, currentPage, setCurrentPage}) {
-    const pageNumber = [];
-    for (let i = 1; i <= Math.ceil(allCountries/countriesPerPage); i++) {
-        pageNumber.push(i)
-    }
+export default function Pagination({ totalPages, paginate, currentPage, setCurrentPage }) {
+    const maxNumbers = 10;
+    let pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+        }
+    
+    let pageNumbers = () => {
+        const half = Math.round(maxNumbers / 2);
+        let to = maxNumbers;
+        if (currentPage + half >= totalPages) {
+            to = totalPages;
+        } else if (currentPage > half) {
+            to = currentPage + half;
+        }
+        let from = to - maxNumbers;
+        if (from < 0) {
+            from = 0;
+        }
+        return pages.slice(from, to);
+    };
 
     return (
-        <nav>
-            <ul className = 'paginationBar'>
-                {pageNumber && 
-                pageNumber.map(number => {
-                    return (
-                        <li className = 'paginationNumber' key = {number}>
-                        <button onClick={() => pagination(number)}>
-                            {number}
-                        </button>
-                        </li>
-                    )                   
-                }) 
-                }               
-            </ul>
-        </nav>
-    )
+        <div className={styles.containerPagination}>
+          {currentPage > 1 && (
+            <li className={styles.previous}>
+              <a href="#" onClick={() => paginate(-1)}>
+                Prev
+              </a>
+            </li>
+          )}
+          {pageNumbers().map((number) => (
+            <li
+              key={number}
+              className={
+                number === currentPage ? styles.active : styles.liContainer
+              }
+            >
+              <a href="#" onClick={() => setCurrentPage(number)}>
+                {number}
+              </a>
+            </li>
+          ))}
+          {currentPage !== totalPages && (
+            <li className={styles.next}>
+              <a href="#" onClick={() => paginate(1)}>
+                Next
+              </a>
+            </li>
+          )}
+        </div>
+    );
 }
-
