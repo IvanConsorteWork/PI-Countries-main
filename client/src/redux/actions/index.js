@@ -71,7 +71,7 @@ export function getAllActivities(){
   return async function (dispatch){
       var json=await axios.get(`/activities`)
       return dispatch({
-        type: "GET_ALL_ACTIVITIES",
+        type: GET_ALL_ACTIVITIES,
         payload: json.data
       });
   }
@@ -79,28 +79,28 @@ export function getAllActivities(){
 
 export const filterByActivity = (payload) => {
     return {
-      type: "FILTER_BY_ACTIVITY",
+      type: FILTER_BY_ACTIVITY,
       payload
     }
 };
 
 export const filterByContinent = (payload) => {
     return {
-      type:"FILTER_BY_CONTINENT",
+      type: FILTER_BY_CONTINENT,
       payload
     }
 };
   
 export const sortByName = (payload) => {
     return {
-      type:'SORT_BY_NAME',
+      type: SORT_BY_NAME,
       payload
     }
 };
   
 export const sortByPopulation = (payload) => {
     return {
-      type: "SORT_BY_POPULATION",
+      type: SORT_BY_POPULATION,
       payload
     }
 };

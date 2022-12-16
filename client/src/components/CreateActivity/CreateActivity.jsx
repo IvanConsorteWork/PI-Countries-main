@@ -200,7 +200,7 @@ export default function CreateActivity () {
                         <select defaultValue = {'default'} name = "relatedCountries" onChange = {e => handleCountrySelect(e)}>
                             <option value = 'default' disabled>Select Country</option>
                                 {countries.map(c => (
-                                    <option value = {c.name}>{c.name}</option>
+                                    <option key = {c.name} value = {c.name}>{c.name}</option>
                                 ))}                    
                         </select>
                         {errors.relatedCountries && (
@@ -212,7 +212,7 @@ export default function CreateActivity () {
                 </form>
                 <br></br>
                 {input.relatedCountries.map(c =>
-                    <div>
+                    <div key = {c}>
                         <p>{c}         
                         <button onClick = {() => handleDelete(c)}>X</button>
                         </p>

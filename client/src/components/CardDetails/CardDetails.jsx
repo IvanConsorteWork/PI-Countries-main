@@ -74,7 +74,7 @@ export default function CardDetails (props) {
                         <div className = 'coutryActivities'>
                             {checkActivities()}
                             <br></br>
-                            {myCountry.activities?.map(e => <div>
+                            {myCountry.activities?.map(e => <div key={e}>
                                 <ul>
                                     <li>Name: {e.name}</li>
                                     <br></br>

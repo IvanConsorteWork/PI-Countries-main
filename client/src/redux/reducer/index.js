@@ -38,15 +38,15 @@ const rootReducer = (state = initialState, action) => {
                 countries: action.payload          
             } 
         case FILTER_BY_ACTIVITY:
-          const getActivity = state.activities.find((a) => a.name === action.payload);
-          console.log("soy el getActivity", getActivity);
-          const getCountries = getActivity.countries.map((c) => c.name);
-          console.log("soy el getCountries", getCountries)
-          const toFilterByActivity = getCountries.map((c) => state.allCountries.find((a) => a.name === c));
-          console.log("soy el toFilter", toFilterByActivity);
-          const activityFilter = action.payload === 'all' ? state.allCountries :
-              toFilterByActivity;       
-          console.log("soy el filter", activityFilter);
+          let activityFilter 
+          if (action.payload !== 'all') {
+            const getActivity = state.activities.find((a) => a.name === action.payload);
+            const getCountries = getActivity.countries.map((c) => c.name);
+            const toFilterByActivity = getCountries.map((c) => state.allCountries.find((a) => a.name === c));
+            activityFilter = toFilterByActivity
+          } else {
+            activityFilter = state.allCountries
+          }       
           return {
               ...state,
               countries: activityFilter
