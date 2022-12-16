@@ -11,17 +11,6 @@ export const FILTER_BY_CONTINENT = "FILTER_BY_CONTINENT";
 export const SORT_BY_NAME = "SORT_BY_NAME";
 export const SORT_BY_POPULATION = "SORT_BY_POPULATION";
 
-
-// export const getAllCountries = () => async dispatch => {
-//   return fetch('/countries')
-//   .then(response => response.json())
-//   .then(json => {
-//       dispatch({ 
-//           type: GET_ALL_COUNTRIES, 
-//           payload: json })
-//   })
-// };
-
 export function getAllCountries() {
   return async function (dispatch) {
     var json = await axios.get("/countries");
@@ -31,20 +20,6 @@ export function getAllCountries() {
     });
   };
 }
-
-// export const getCountryByName = (name) => async dispatch => {
-//     try {
-//       return fetch(`/countries?name=${name}`)
-//       .then(response => response.json())
-//       .then(json => {
-//           dispatch({ 
-//               type: GET_COUNTRY_BY_NAME, 
-//               payload: json })
-//           })
-//     } catch (e) {      
-//         alert(e)
-//     }    
-// };
 
 export function getCountryByName(name){
   return async function (dispatch){
@@ -59,20 +34,6 @@ export function getCountryByName(name){
     }
   }
   }
-
-// export const getCountryDetails = (id) => async dispatch => {
-//   try {
-//     return fetch(`/countries/${id}`)
-//     .then(response => response.json())
-//     .then(json => {
-//         dispatch({ 
-//             type: GET_COUNTRY_DETAILS, 
-//             payload: json})
-//         })
-//   } catch (e) {      
-//       alert(e)
-//   }    
-// };
 
 export function getCountryDetails(id){
   return async function(dispatch){
@@ -105,16 +66,6 @@ export const createActivity = (payload) => {
 //         payload: id
 //     }
 //  };
-
-// export const getAllActivities = () => async dispatch => {
-//   return fetch('/activities')
-//   .then(response => response.json())
-//   .then(json => {
-//       dispatch({ 
-//           type: GET_ALL_ACTIVITIES, 
-//           payload: json })
-//   })  
-// };
 
 export function getAllActivities(){
   return async function (dispatch){

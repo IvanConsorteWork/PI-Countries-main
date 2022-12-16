@@ -38,17 +38,19 @@ const rootReducer = (state = initialState, action) => {
                 countries: action.payload          
             } 
         case FILTER_BY_ACTIVITY:
-            const toFilterByActivity = state.allCountries;
-            const activityFilter = action.payload === 'all' ? toFilterByActivity :
-                // toFilterByActivity.filter(c => c.activities.find((a) => a.name.toLowerCase() === action.payload.toLowerCase()));
-                // console.log('Filtro', activityFilter)
-                toFilterByActivity.filter((e) =>
-                e.activities &&
-                e.activities.map((e) => e.name).includes(action.payload));                
-            return {
-                ...state,
-                countries: activityFilter
-            }
+          const getActivity = state.activities.find((a) => a.name === action.payload);
+          console.log("soy el getActivity", getActivity);
+          const getCountries = getActivity.countries.map((c) => c.name);
+          console.log("soy el getCountries", getCountries)
+          const toFilterByActivity = getCountries.map((c) => state.allCountries.find((a) => a.name === c));
+          console.log("soy el toFilter", toFilterByActivity);
+          const activityFilter = action.payload === 'all' ? state.allCountries :
+              toFilterByActivity;       
+          console.log("soy el filter", activityFilter);
+          return {
+              ...state,
+              countries: activityFilter
+          }
           case FILTER_BY_CONTINENT:  
             const toFilterByContinent = state.allCountries;
             const filteredByContinent = action.payload === 'All' ? 
@@ -106,31 +108,7 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 allCountries: sortedByPopulation,
                 countries: sortedByPopulation,
-            };   
-        // case FILTER_BY_ACTIVITY:
-        //     const toFilterByActivity = filterByContinent !== 'Applied' ? 
-        //     state.allCountries : state.countries; 
-        //     const activityFilter = action.payload === 'all' ? toFilterByActivity :
-        //         toFilterByActivity.filter(c => c.activities.find((a) => a.name.toLowerCase() === action. payload.toLowerCase()));
-        //         console.log('Filtro', activityFilter)
-        //     state.filterByActivity = action.payload === 'All' ?
-        //      [] : ['Applied']
-        //     return {
-        //         ...state,
-        //         countries: activityFilter
-        //     }
-        // case FILTER_BY_CONTINENT:  
-        //     const toFilterByContinent = filterByActivity !== 'Applied' ? 
-        //     state.allCountries : state.countries;     
-        //     const filteredByContinent = action.payload === 'All' ? 
-        //         toFilterByContinent : 
-        //         toFilterByContinent.filter(c => c.continent === action.payload)
-        //     state.filterByContinent = action.payload === 'All' ?
-        //     [] : ['Applied']
-        //     return {
-        //         ...state,
-        //         countries: filteredByContinent
-        //     };      
+            };             
         default: 
             return {
                 ...state

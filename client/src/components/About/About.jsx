@@ -25,9 +25,9 @@ export default function About () {
                 <br></br>
                 <li>React & Redux (Front-End)</li>
                 <br></br>
-                <li>Node Express (Back-End)</li>
+                <li>Node JS Express (Back-End)</li>
                 <br></br>
-                <li>Sequelize (Database)</li>
+                <li>PostgresSQL & Sequelize (Database)</li>
                 <br></br>
                 <li>Jest (Testing)</li>
             </ol>

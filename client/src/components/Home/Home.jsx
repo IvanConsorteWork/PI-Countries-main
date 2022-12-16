@@ -28,16 +28,16 @@ export default function Home () {
     const indexOfLastCountry = currentPage * countriesPerPage;
     const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
 
-    const findCurrentCountries = () => {
-        try {
-            return allCountries.slice(indexOfFirstCountry, indexOfLastCountry)
-        } catch (e) {
-            alert('Country not found');
-            dispatch(getAllCountries())
-        }
-    }
+    // const findCurrentCountries = () => {
+    //     try {
+    //         return allCountries.slice(indexOfFirstCountry, indexOfLastCountry)
+    //     } catch (e) {
+    //         alert('Country not found');
+    //         dispatch(getAllCountries())
+    //     }
+    // }
 
-    const currentCountries = findCurrentCountries();
+    const currentCountries = allCountries.slice(indexOfFirstCountry, indexOfLastCountry);
 
     const pagination = (pageNumber) => {
         if (pageNumber === 1) {
@@ -104,10 +104,10 @@ export default function Home () {
 
                 <div className = "filters">
                     <select onChange = {e => handleFilterByActivity(e)}>
-                        <option value = "all">Select Activity</option>
+                        <option key = "all" value = "all">Select Activity</option>
                         {allActivities?.map((a) => {
                             return (
-                                <option value = {a.name}>{a.name}</option>
+                                <option key={a.name} value = {a.name}>{a.name}</option>
                             )
                         })}
                     </select>
@@ -155,6 +155,7 @@ export default function Home () {
                             return (
                                 <Card
                                 id = {c.id}
+                                key = {c.id}
                                 name = {c.name}
                                 flag = {c.flag}
                                 continent = {c.continent}/>

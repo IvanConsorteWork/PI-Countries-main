@@ -183,11 +183,11 @@ export default function CreateActivity () {
                     <div>
                         <label>Season: </label>
                         <select defaultValue = {'default'} name = "season" onChange = {e => handleSelect(e)}>
-                            <option value='default' disabled>Season</option>
-                            <option value="summer">Summer</option>
-                            <option value="winter">Winter</option>
-                            <option value="autumn">Autumn</option>
-                            <option value="spring">Spring</option>
+                            <option value='default' disabled>Season</option>                            
+                            <option value="Autumn">Autumn</option>
+                            <option value="Spring">Spring</option>
+                            <option value="Summer">Summer</option>
+                            <option value="Winter">Winter</option>
                         </select>
                     </div>
                     <div>

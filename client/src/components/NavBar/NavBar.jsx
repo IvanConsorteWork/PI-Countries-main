@@ -8,20 +8,15 @@ export default function NavBar () {
             
             <Link to = '/home' className='navButton'>
                 Home
-            </Link>
-           
-            
+            </Link>            
             
             <Link to = '/activities' className='navButton'>
                 Create Activity
-            </Link>
-           
-            
+            </Link>            
            
             <Link to = '/about' className='navButton'>
                 About
-            </Link>
-            
+            </Link>            
             
         </div>
     )

@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 import './Card.css';
 
 export default class countryCard extends React.Component {
-    // constructor(props) {  
-    //     super(props);
-    // }
-    // No entiendo por qué funciona igual sin constructor
     render() {
         return (
             <div className = 'card'>

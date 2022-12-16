@@ -4,7 +4,11 @@ const { Op } = require('sequelize');
 const getActivity = async (req, res) => {
     try {
         const activities = await Activity.findAll({include: {
-            model: Country
+            model: Country,
+            attributes: ["id", "name"],
+            through: {
+                attributes: []
+                }
             }, 
             order: [[
             'name', 'ASC'

@@ -17,7 +17,7 @@ function App() {
         <Route exact path = '/activities' component = {CreateActivity}></Route>
         <Route exact path = '/home' component = {Home}></Route>        
         <Route path = "/home/:id" component = {CardDetails}></Route>
-        <Route path = '/' component = {NotFound}></Route>
+        <Route path = '*' component = {NotFound}></Route>
       </Switch>      
     </div>
     </BrowserRouter>

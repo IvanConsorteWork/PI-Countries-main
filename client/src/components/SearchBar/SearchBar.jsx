@@ -25,10 +25,8 @@ export default function SearchBar ({setCurrentPage}) {
                 setName("");
                 setCurrentPage(1);
             } catch (e) {
-                console.log(e);
-                alert('Country not found')
-            }
-              
+                alert(e)
+            }              
     }    
 
     return (
