@@ -6,7 +6,7 @@ import Card from '../Card/Card'
 import Pagination from '../Pagination/Pagination';
 import NavBar from '../NavBar/NavBar';
 import SearchBar from '../SearchBar/SearchBar';
-import './Home.css';
+import styles from './Home.module.css';
 
 export default function Home () {
     const dispatch = useDispatch();
@@ -74,18 +74,18 @@ export default function Home () {
     }
 
     return (
-        <div className = "HomeContainer">
-            <div className = "grid-container">
+        <div className = {styles.HomeContainer}>
+            <div className = {styles.gridContainer}>
 
-                <NavBar className = "navBar" />
+                <NavBar className = {styles.navBar} />
 
-                <SearchBar className = "searchBar" setCurrentPage = {setCurrentPage}/>
+                <SearchBar className = {styles.searchBar} setCurrentPage = {setCurrentPage}/>
 
-                <h1 className = "appTitle">
+                <h1 className = {styles.appTitle}>
                     Countries Henry App
                 </h1>
 
-                <div className = "filters">
+                <div className = {styles.filters}>
                     <select onChange = {e => handleFilterByActivity(e)}>
                         <option key = "all" value = "all">Select Activity</option>
                         {allActivities?.map((a) => {
@@ -120,7 +120,7 @@ export default function Home () {
 
                 </div>
 
-                <div className = 'pagination'>
+                <div className = {styles.pagination}>
                     <Pagination
                         totalPages={totalPages}
                         paginate={paginate}
@@ -129,8 +129,8 @@ export default function Home () {
                     />
                 </div>
 
-                <div className='cards-content'>
-                    <div className = 'cards-grid'>
+                <div className={styles.cardsContent}>
+                    <div className = {styles.cardsGrid}>
                         {currentCountries && currentCountries?.map((c) => {
                             return (
                                 <Card
@@ -145,8 +145,8 @@ export default function Home () {
                     </div>
                 </div>
 
-                <div className = 'refreshButtonDiv'>
-                    <button className = "refreshButton" onClick = {e => {handleClick(e)}}>
+                <div className = {styles.refreshButtonDiv}>
+                    <button className = {styles.refreshButton} onClick = {e => {handleClick(e)}}>
                         Refresh Countries List
                     </button>
                 </div>

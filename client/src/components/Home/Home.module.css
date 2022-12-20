@@ -1,4 +1,4 @@
-.grid-container {
+.gridContainer {
     display: grid;
     gap: 30px;
     grid-template-areas: 
@@ -6,12 +6,12 @@
     "appTitle"
     "filters"
     "pagination"
-    "cards-content"
+    "cardsContent"
     "refreshButtonDiv";
 }
 
 @media (min-width: 600px) {
-    .grid-container {
+    .gridContainer {
         grid-template-rows: 75px 30px 100px 50px 50px auto 50px;
     }
 }
@@ -49,12 +49,12 @@
                  0px 0px 10px rgba(0,0,0,.2);
 }
 
-.cards-content {    
+.cardsContent {    
     display: flex;
     justify-content: space-around;
 }
 
-.cards-grid {
+.cardsGrid {
     display: grid;
     grid-gap: 20px;
     grid-template-columns: repeat(3, 1fr);
